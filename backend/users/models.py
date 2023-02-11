@@ -10,11 +10,11 @@ class CustomUser(AbstractUser):
     # around the globe.
     name = models.CharField(_("Name of User"), blank=True, max_length=255)
 
-    def __str__(self):
+    def __str__(self) -> str:
         return f"@{self.username}"
 
-    def get_short_name(self):
+    def get_short_name(self) -> str:
         return self.username
 
-    def get_full_name(self):
+    def get_full_name(self) -> str:
         return self.name
