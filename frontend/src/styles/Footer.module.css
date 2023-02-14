@@ -1,0 +1,10 @@
+/* CSS for the footer */
+.footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #2e2e2e;
+  color: #fff;
+  height: 3.125rem;
+  font-size: .875rem;
+}

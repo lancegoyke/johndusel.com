@@ -1,0 +1,21 @@
+/* CSS for the menu */
+.menu {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.25rem;
+  background-color: var(--color-light-primary);
+  color: var(--color-dark-tertiary);
+}
+
+.menu a {
+  text-decoration: none;
+  color: var(--color-dark-tertiary);
+  margin-right: 1.25rem;
+  font-size: 1.125rem;
+}
+
+/* CSS for the logo */
+.logo {
+  margin-right: auto;
+}
