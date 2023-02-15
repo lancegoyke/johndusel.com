@@ -5,11 +5,14 @@ from .serializers import PostSerializer
 
 
 class PostListAPIView(generics.ListAPIView):
-    queryset = Post.objects.all().order_by("-created_at")[:3]
+    queryset = Post.objects\
+        .select_related("author")\
+        .prefetch_related("categories")\
+        .order_by("-created_at")[:3]
     serializer_class = PostSerializer
 
 
 class PostDetailAPIView(generics.RetrieveAPIView):
-    queryset = Post.objects.all()
+    queryset = Post.objects.select_related()
     serializer_class = PostSerializer
     lookup_field = "slug"
