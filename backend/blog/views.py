@@ -13,6 +13,6 @@ class PostListAPIView(generics.ListAPIView):
 
 
 class PostDetailAPIView(generics.RetrieveAPIView):
-    queryset = Post.objects.select_related()
+    queryset = Post.objects.select_related("author")
     serializer_class = PostSerializer
     lookup_field = "slug"
