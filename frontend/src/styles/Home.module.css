@@ -6,29 +6,3 @@
   background-color: var(--color-light-secondary);
   color: var(--color-dark-tertiary);
 }
-
-.content {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  max-width: 1000px;
-  margin: 0 auto;
-}
-
-.articles {
-  display: flex;
-  flex-direction: column;
-}
-
-.article {
-  width: 100%;
-  margin: 1.25rem auto;
-  background-color: var(--color-tertiary);
-  padding: 2.5rem;
-}
-
-.article h3 {
-  font-size: 1.5rem;
-  font-weight: bolder;
-  margin-bottom: 1.25rem;
-}

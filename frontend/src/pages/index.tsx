@@ -1,30 +1,13 @@
 import Head from 'next/head'
 import Navbar from '../components/Navbar'
 import Hero from '../components/Hero'
+import Posts from '../components/Posts'
 import Footer from '../components/Footer'
 import styles from '../styles/Home.module.css'
 import getPosts from '../lib/getPosts'
+import PostsInterface from '../interfaces/PostsInterface'
 
-interface Posts {
-  posts: [
-    post: {
-      id: number,
-      title: string,
-      slug: string,
-      author: {
-        id: number,
-        name: string,
-        email: string,
-        username: string,
-      },
-      content: string,
-      created_at: string,
-      updated_at: string,
-    }
-  ];
-}
-
-export default function Home({ posts }: Posts) {
+export default function Home({ posts }: PostsInterface) {
   return (
     <>
       <Head>
@@ -37,18 +20,8 @@ export default function Home({ posts }: Posts) {
         <div>
           <Navbar />
           <Hero />
-
           <div className={styles.contentContainer}>
-            <section className={styles.content}>
-              <h2>Latest Posts</h2>
-              {posts.map((post) => (
-                <article className={styles.article}>
-                  <h3>{post.title}</h3>
-                  <p>{post.created_at.slice(0, 10)}</p>
-                  <p><span className={styles.category}>CATEGORY</span></p>
-                </article>
-              ))}
-            </section>
+            <Posts posts={posts} />
           </div>
         </div>
       </main>
@@ -63,4 +36,3 @@ export async function getStaticProps() {
     props: { posts },
   }
 }
-
