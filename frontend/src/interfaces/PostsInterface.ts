@@ -10,6 +10,12 @@ export default interface PostsInterface {
         email: string,
         username: string,
       },
+      categories: [
+        category: {
+          name: string,
+          slug: string,
+        }
+      ],
       content: string,
       created_at: string,
       updated_at: string,

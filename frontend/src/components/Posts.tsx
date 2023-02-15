@@ -9,7 +9,11 @@ export default function Posts({ posts }: PostsInterface) {
         <article className={styles.article}>
           <h3>{post.title}</h3>
           <p>{post.created_at.slice(0, 10)}</p>
-          <p><span className={styles.category}>CATEGORY</span></p>
+          <p>
+            {post.categories && post.categories.map((category) => (
+              <span className={styles.category}>{category.name}</span>
+            ))}
+          </p>
         </article>
       ))}
     </section>
