@@ -5,7 +5,7 @@ from .serializers import PostSerializer
 
 
 class PostListAPIView(generics.ListAPIView):
-    queryset = Post.objects.all().order_by("-created_at")
+    queryset = Post.objects.all().order_by("-created_at")[:3]
     serializer_class = PostSerializer
 
 
