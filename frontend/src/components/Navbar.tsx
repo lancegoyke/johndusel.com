@@ -5,8 +5,8 @@ export default function Navbar() {
     <header className={styles.menu}>
       <div className={styles.logo}>Admin User</div>
       <nav>
-        <a href="#">Home</a>
-        <a href="#">About</a>
+        <a href="/">Home</a>
+        <a href="/about">About</a>
         <a href="#">Contact</a>
       </nav>
     </header>

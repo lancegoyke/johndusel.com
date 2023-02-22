@@ -1,4 +1,5 @@
 :root {
+  /* Colors */
   --color-primary: teal;
   --color-secondary: blueviolet;
   --color-tertiary: pink;
@@ -13,11 +14,25 @@
   --color-success: green;
   --color-info: blue;
 
+  /* Spacing */
   --measure: 60ch;
+  --ratio: 1.5;
+  --s-5: calc(var(--s-4) / var(--ratio));
+  --s-4: calc(var(--s-3) / var(--ratio));
+  --s-3: calc(var(--s-2) / var(--ratio));
+  --s-2: calc(var(--s-1) / var(--ratio));
+  --s-1: calc(var(--s0) / var(--ratio));
+  --s0: 1rem;
+  --s1: calc(var(--s0) * var(--ratio));
+  --s2: calc(var(--s1) * var(--ratio));
+  --s3: calc(var(--s2) * var(--ratio));
+  --s4: calc(var(--s3) * var(--ratio));
+  --s5: calc(var(--s4) * var(--ratio));
 }
 
 * {
   box-sizing: border-box;
+  max-inline-size: var(--measure);
   padding: 0;
   margin: 0;
 }
@@ -28,17 +43,78 @@ body {
   overflow-x: hidden;
 }
 
-p,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  max-width: var(--measure);
+html,
+body,
+div,
+header,
+nav,
+main,
+section,
+article,
+footer {
+  max-inline-size: none;
 }
 
 a {
   color: inherit;
   text-decoration: none;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 0 var(--s3) 0;
+}
+
+/* Applies margin to vertically stacked elements */
+.stack {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.stack > * {
+  margin-block: 0;
+} 
+
+.stack > * + * {
+  margin-block-start: var(--space, 1.5rem);
+}
+
+/* Recursive stack applied to all sub-elements */
+.stack-recursive {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.stack-recursive * {
+  margin-block: 0;
+} 
+
+.stack-recursive * + * {
+  margin-block-start: var(--space, 1.5rem);
+}
+
+/* Horizontal centering */
+.center {
+  box-sizing: content-box;
+  margin-inline: auto;
+  max-inline-size: var(--measure);
+  padding-inline-start: var(--s1);
+  padding-inline-end: var(--s1);
+}
+
+/* Utilities */
+.max-inline-size\:normal {
+  max-inline-size: calc(var(--measure));
+}
+
+.max-inline-size\:large {
+  max-inline-size: calc(var(--measure) * var(--ratio));
+}
+
+.max-inline-size\:larger {
+  max-inline-size: calc(var(--measure) * 2);
 }
