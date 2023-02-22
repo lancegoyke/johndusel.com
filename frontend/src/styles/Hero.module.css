@@ -4,13 +4,11 @@
   margin: 0 auto;
   background-color: var(--color-light-primary);
   color: var(--color-dark-secondary);
-  padding: 1.25rem;
 }
 
 .hero {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: flex-start;
   height: 35vh;
 }

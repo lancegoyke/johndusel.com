@@ -1,8 +1,0 @@
-/* CSS for the main content */
-.contentContainer {
-  width: 100%;
-  margin: 0 auto;
-  padding: 1.25rem;
-  background-color: var(--color-light-secondary);
-  color: var(--color-dark-tertiary);
-}
