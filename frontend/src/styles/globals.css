@@ -6,9 +6,14 @@
   --color-light-primary: hsl(0, 0%, 100%);
   --color-light-secondary: hsl(194, 100%, 95%);
   --color-light-tertiary: hsl(0, 0%, 95%);
+  --color-light-quaternary: hsl(0, 0%, 80%);
+  --color-mid-dark: hsl(0, 0%, 40%);
+  --color-mid-mid: hsl(0, 0%, 50%);
+  --color-mid-light: hsl(0, 0%, 60%);
   --color-dark-primary: hsl(0, 0%, 0%);
   --color-dark-secondary: hsl(0, 0%, 15%);
   --color-dark-tertiary: hsl(0, 0%, 25%);
+  --color-dark-quaternary: hsl(0, 0%, 50%);
   --color-error: red;
   --color-warning: yellow;
   --color-success: green;
@@ -17,6 +22,8 @@
   /* Spacing */
   --measure: 60ch;
   --ratio: 1.5;
+  --border-radius-sharp: var(--s-5);
+  --border-radius-soft: var(--s1);
   --s-5: calc(var(--s-4) / var(--ratio));
   --s-4: calc(var(--s-3) / var(--ratio));
   --s-3: calc(var(--s-2) / var(--ratio));
@@ -104,6 +111,49 @@ main {
   max-inline-size: var(--measure);
   padding-inline-start: var(--s1);
   padding-inline-end: var(--s1);
+}
+
+/* Post Metadata */
+.stack-recursive .post-meta * {
+  margin-block: 0;
+}
+
+.post-meta {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  gap: var(--s-1);
+  margin-block-start: var(--s-1);
+  margin-block-end: var(--s-1);
+}
+
+/* Dates */
+time {
+  color: var(--color-mid-light);
+  font-style: italic;
+}
+
+/* Category badges */
+.categories {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: var(--s-1);
+  margin-block-start: var(--s-1);
+  margin-block-end: var(--s-1);
+}
+
+.category {
+  background-color: var(--color-light-tertiary);
+  border-radius: var(--border-radius-sharp);
+  color: var(--color-dark-tertiary);
+  display: inline-block;
+  font-size: var(--s-1);
+  font-weight: 700;
+  margin-inline-end: var(--s-1);
+  padding-block: var(--s-2);
+  padding-inline: var(--s-1);
+  text-transform: uppercase;
 }
 
 /* Utilities */

@@ -25,8 +25,10 @@ export default function Post({ post }: { post: PostInterface }) {
         <div>
           <div className="center stack-recursive">
             <h1>{post.title}</h1>
-            <Date dateString={post.created_at} />
-            <Categories categories={post.categories} />
+            <div className="post-meta">
+              <Categories categories={post.categories} />
+              <Date dateString={post.created_at} />
+            </div>
             <div>{post.body}</div>
           </div>
         </div>
