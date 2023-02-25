@@ -1,6 +1,8 @@
 import Head from "next/head";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import Date from "../components/Date";
+import Categories from "../components/Categories";
 import getPostSlugs from "../lib/getPostSlugs";
 import getPost from "../lib/getPost";
 import PostInterface from "../interfaces/PostInterface";
@@ -21,15 +23,11 @@ export default function Post({ post }: { post: PostInterface }) {
       <Navbar />
       <main>
         <div>
-          <div className="center max-inline-size:large">
+          <div className="center stack-recursive">
             <h1>{post.title}</h1>
-            <div>{post.created_at}</div>
+            <Date dateString={post.created_at} />
+            <Categories categories={post.categories} />
             <div>{post.body}</div>
-            <div>
-              {post.categories.map((category) => {
-                return <span key={category.slug}>{category.name}</span>;
-              })}
-            </div>
           </div>
         </div>
       </main>

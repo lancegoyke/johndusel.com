@@ -1,3 +1,8 @@
+export default interface CategoryInterface {
+  name: string,
+  slug: string,
+}
+
 export default interface PostInterface {
   id: number,
   title: string,
@@ -8,12 +13,7 @@ export default interface PostInterface {
     email: string,
     username: string,
   },
-  categories: [
-    category: {
-      name: string,
-      slug: string,
-    }
-  ],
+  categories: [category: CategoryInterface],
   body: string,
   created_at: string,
   updated_at: string,
