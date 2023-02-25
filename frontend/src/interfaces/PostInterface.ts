@@ -14,7 +14,7 @@ export default interface PostInterface {
       slug: string,
     }
   ],
-  content: string,
+  body: string,
   created_at: string,
   updated_at: string,
 }
