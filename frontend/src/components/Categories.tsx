@@ -1,4 +1,4 @@
-import CategoryInterface from "../interfaces/PostInterface";
+import { CategoryInterface } from "../interfaces/PostInterface";
 
 export default function Categories({
   categories,

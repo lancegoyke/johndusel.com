@@ -1,11 +1,11 @@
 import Head from "next/head";
+import { GetStaticProps } from "next";
 import Navbar from "../components/Navbar";
 import Hero from "../components/Hero";
 import LatestPosts from "../components/LatestPosts";
 import Footer from "../components/Footer";
-import getLatestPosts from "../lib/getLatestPosts";
-import PostInterface from "../interfaces/PostInterface";
-import { GetStaticProps } from "next";
+import { getLatestPosts } from "../utils/getPosts";
+import { PostInterface } from "../interfaces/PostInterface";
 
 export default function Home({ posts }: { posts: PostInterface[] }) {
   return (

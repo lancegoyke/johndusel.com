@@ -3,9 +3,9 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import Date from "../components/Date";
 import Categories from "../components/Categories";
-import getPostSlugs from "../lib/getPostSlugs";
-import getPost from "../lib/getPost";
-import PostInterface from "../interfaces/PostInterface";
+import { getPostSlugs } from "../utils/getPostSlugs";
+import getPost from "../utils/getPost";
+import { PostInterface } from "../interfaces/PostInterface";
 import { GetStaticProps, GetStaticPaths } from "next";
 
 export default function Post({ post }: { post: PostInterface }) {
