@@ -7,7 +7,6 @@ import PostInterface from "../interfaces/PostInterface";
 import { GetStaticProps, GetStaticPaths } from "next";
 
 export default function Post({ post }: { post: PostInterface }) {
-  console.log(post);
   return (
     <>
       <Head>
