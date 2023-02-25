@@ -4,11 +4,19 @@ from .models import Post
 from .serializers import PostSerializer
 
 
-class PostListAPIView(generics.ListAPIView):
+class PostListLatestAPIView(generics.ListAPIView):
     queryset = Post.objects\
         .select_related("author")\
         .prefetch_related("categories")\
         .order_by("-created_at")[:3]
+    serializer_class = PostSerializer
+
+
+class PostListAPIView(generics.ListAPIView):
+    queryset = Post.objects\
+        .select_related("author")\
+        .prefetch_related("categories")\
+        .order_by("-created_at")
     serializer_class = PostSerializer
 
 

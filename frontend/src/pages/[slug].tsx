@@ -1,13 +1,12 @@
 import Head from "next/head";
 import Navbar from "../components/Navbar";
-import Hero from "../components/Hero";
-import LatestPosts from "../components/LatestPosts";
 import Footer from "../components/Footer";
-import getLatestPosts from "../lib/getLatestPosts";
+import getPostSlugs from "../lib/getPostSlugs";
+import getPost from "../lib/getPost";
 import PostInterface from "../interfaces/PostInterface";
-import { GetStaticProps } from "next";
+import { GetStaticProps, GetStaticPaths } from "next";
 
-export default function Home({ posts }: { posts: PostInterface[] }) {
+export default function Post(post: PostInterface) {
   return (
     <>
       <Head>
@@ -22,9 +21,8 @@ export default function Home({ posts }: { posts: PostInterface[] }) {
       <Navbar />
       <main>
         <div>
-          <Hero />
           <div className="center max-inline-size:large">
-            <LatestPosts posts={posts} />
+            <h1>Post Title</h1>
           </div>
         </div>
       </main>
@@ -33,9 +31,21 @@ export default function Home({ posts }: { posts: PostInterface[] }) {
   );
 }
 
-export const getStaticProps: GetStaticProps = async () => {
-  const posts = await getLatestPosts();
+export const getStaticPaths: GetStaticPaths = async () => {
+  // Return a list of possible value for slug
+  const paths = await getPostSlugs();
   return {
-    props: { posts },
+    paths,
+    fallback: false,
+  };
+};
+
+export const getStaticProps: GetStaticProps = async ({ params }) => {
+  // Fetch the blog post using params.slug
+  const post = await getPost(params?.slug as string);
+  return {
+    props: {
+      post,
+    },
   };
 };
