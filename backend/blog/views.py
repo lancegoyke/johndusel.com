@@ -1,7 +1,7 @@
 from rest_framework import generics
 
-from .models import Post
-from .serializers import PostSerializer
+from .models import Post, Category
+from .serializers import PostSerializer, CategorySerializer
 
 
 class PostListLatestAPIView(generics.ListAPIView):
@@ -35,4 +35,15 @@ class PostListByCategoryAPIView(generics.ListAPIView):
 class PostDetailAPIView(generics.RetrieveAPIView):
     queryset = Post.objects.select_related("author")
     serializer_class = PostSerializer
+    lookup_field = "slug"
+
+
+class CategoryListAPIView(generics.ListAPIView):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
+
+
+class CategoryDetailAPIView(generics.RetrieveAPIView):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
     lookup_field = "slug"
