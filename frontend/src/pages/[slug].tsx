@@ -24,6 +24,13 @@ export default function Post({ post }: { post: PostInterface }) {
         <div>
           <div className="center max-inline-size:large">
             <h1>{post.title}</h1>
+            <div>{post.created_at}</div>
+            <div>{post.body}</div>
+            <div>
+              {post.categories.map((category) => {
+                return <span key={category.slug}>{category.name}</span>;
+              })}
+            </div>
           </div>
         </div>
       </main>
