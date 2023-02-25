@@ -6,11 +6,12 @@ import getPost from "../lib/getPost";
 import PostInterface from "../interfaces/PostInterface";
 import { GetStaticProps, GetStaticPaths } from "next";
 
-export default function Post(post: PostInterface) {
+export default function Post({ post }: { post: PostInterface }) {
+  console.log(post);
   return (
     <>
       <Head>
-        <title>Admin User</title>
+        <title>{post.title}</title>
         <meta
           name="description"
           content="Professional work in an impressive field"
@@ -22,7 +23,7 @@ export default function Post(post: PostInterface) {
       <main>
         <div>
           <div className="center max-inline-size:large">
-            <h1>Post Title</h1>
+            <h1>{post.title}</h1>
           </div>
         </div>
       </main>
