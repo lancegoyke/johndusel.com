@@ -29,7 +29,7 @@ export default function Post({ post }: { post: PostInterface }) {
               <Categories categories={post.categories} />
               <Date dateString={post.created_at} />
             </div>
-            <div>{post.body}</div>
+            <div dangerouslySetInnerHTML={{ __html: post.body }}></div>
           </div>
         </div>
       </main>
