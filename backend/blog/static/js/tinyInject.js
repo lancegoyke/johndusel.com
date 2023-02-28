@@ -39,4 +39,5 @@ tinymce.init({
   ],
   menubar: false,
   images_upload_url: "/upload/",
+  convert_urls: false,
 });

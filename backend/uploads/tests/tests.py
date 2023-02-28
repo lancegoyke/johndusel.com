@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.test import TestCase
 
 
@@ -12,7 +13,7 @@ class ImageUploadTests(TestCase):
             response.content,
             {
                 "message": "Image uploaded successfully",
-                "location": "/media/images/test-image.jpg",
+                "location": f"{settings.DOMAIN}/media/images/test-image.jpg",
             },
         )
 

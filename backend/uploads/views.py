@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 
@@ -22,5 +23,8 @@ def upload_image(request):
     image = Image(image=file_obj)
     image.save()
     return JsonResponse(
-        {"message": "Image uploaded successfully", "location": image.image.url}
+        {
+            "message": "Image uploaded successfully",
+            "location": f"{settings.DOMAIN}{image.image.url}",
+        }
     )
