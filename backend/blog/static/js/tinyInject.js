@@ -38,4 +38,5 @@ tinymce.init({
     [0x2194, "arrow left right"],
   ],
   menubar: false,
+  images_upload_url: "/upload/",
 });
