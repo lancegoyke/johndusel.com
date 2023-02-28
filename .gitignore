@@ -35,9 +35,6 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# local env files
-.env*.local
-
 # vercel
 .vercel
 
@@ -145,6 +142,8 @@ venv/
 ENV/ 
 env.bak/ 
 venv.bak/ 
+*.env
+!.example.env
 
 # mkdocs documentation 
 /site 
