@@ -26,7 +26,7 @@ export default function Post({ post }: { post: PostInterface }) {
           <div className="center stack-recursive">
             <h1>{post.title}</h1>
             <div className="post-meta">
-              <Categories categories={post.categories} />
+              {post.categories && <Categories categories={post.categories} />}
               <Date dateString={post.created_at} />
             </div>
             <div dangerouslySetInnerHTML={{ __html: post.body }}></div>
