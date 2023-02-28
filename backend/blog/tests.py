@@ -14,7 +14,7 @@ class PostTests(TestCase):
     test_time_now: datetime = timezone.now()
     admin_user: UserType
     post: Post
-    
+
     @classmethod
     @mock.patch("django.utils.timezone.now", mock.Mock(return_value=test_time_now))
     def setUpTestData(cls) -> None:
@@ -57,7 +57,7 @@ class PostListAPIViewTests(TestCase):
     test_time_now: datetime = timezone.now()
     admin_user: UserType
     post: Post
-    
+
     @classmethod
     @mock.patch("django.utils.timezone.now", mock.Mock(return_value=test_time_now))
     def setUpTestData(cls) -> None:
@@ -82,8 +82,14 @@ class PostListAPIViewTests(TestCase):
         self.assertEqual(response.data[0]["slug"], "test-post")
         self.assertEqual(response.data[0]["body"], "Test body")
         self.assertEqual(response.data[0]["author"]["id"], self.admin_user.id)
-        self.assertEqual(response.data[0]["author"]["username"], self.admin_user.username)
+        self.assertEqual(
+            response.data[0]["author"]["username"], self.admin_user.username
+        )
         self.assertEqual(response.data[0]["author"]["email"], self.admin_user.email)
         self.assertEqual(response.data[0]["author"]["name"], self.admin_user.name)
-        self.assertEqual(response.data[0]["created_at"], f"{self.test_time_now.isoformat()[:-6]}Z")
-        self.assertEqual(response.data[0]["updated_at"], f"{self.test_time_now.isoformat()[:-6]}Z")
+        self.assertEqual(
+            response.data[0]["created_at"], f"{self.test_time_now.isoformat()[:-6]}Z"
+        )
+        self.assertEqual(
+            response.data[0]["updated_at"], f"{self.test_time_now.isoformat()[:-6]}Z"
+        )

@@ -5,26 +5,29 @@ from .serializers import PostSerializer, CategorySerializer
 
 
 class PostListLatestAPIView(generics.ListAPIView):
-    queryset = Post.objects\
-        .select_related("author")\
-        .prefetch_related("categories")\
+    queryset = (
+        Post.objects.select_related("author")
+        .prefetch_related("categories")
         .order_by("-created_at")[:3]
+    )
     serializer_class = PostSerializer
 
 
 class PostListAPIView(generics.ListAPIView):
-    queryset = Post.objects\
-        .select_related("author")\
-        .prefetch_related("categories")\
+    queryset = (
+        Post.objects.select_related("author")
+        .prefetch_related("categories")
         .order_by("-created_at")
+    )
     serializer_class = PostSerializer
 
 
 class PostListByCategoryAPIView(generics.ListAPIView):
-    queryset = Post.objects\
-        .select_related("author")\
-        .prefetch_related("categories")\
+    queryset = (
+        Post.objects.select_related("author")
+        .prefetch_related("categories")
         .order_by("-created_at")
+    )
     serializer_class = PostSerializer
 
     def get_queryset(self):

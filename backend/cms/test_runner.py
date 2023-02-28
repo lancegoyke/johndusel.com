@@ -8,6 +8,4 @@ class TestRunner(DiscoverRunner):
             return super().run_tests(*args, **kwargs)
 
 
-TEST_SETTINGS = {
-    "DEFAULT_FILE_STORAGE": 'inmemorystorage.InMemoryStorage'
-}
+TEST_SETTINGS = {"DEFAULT_FILE_STORAGE": "inmemorystorage.InMemoryStorage"}

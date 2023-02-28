@@ -6,12 +6,16 @@ from .views import (
     PostListByCategoryAPIView,
     PostListLatestAPIView,
     PostDetailAPIView,
-    CategoryListAPIView
+    CategoryListAPIView,
 )
 
 
 urlpatterns = [
-    path("categories/<str:slug>/", CategoryDetailAPIView.as_view(), name="category_detail"),
+    path(
+        "categories/<str:slug>/",
+        CategoryDetailAPIView.as_view(),
+        name="category_detail",
+    ),
     path(
         "posts/category/<str:category_slug>/",
         PostListByCategoryAPIView.as_view(),

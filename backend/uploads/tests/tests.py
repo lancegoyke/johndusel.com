@@ -18,9 +18,7 @@ class ImageUploadTests(TestCase):
 
     def test_upload_image_wrong_method(self):
         response = self.client.get("/upload/")
-        self.assertJSONEqual(
-            response.content, {"error": "Wrong request method"}
-        )
+        self.assertJSONEqual(response.content, {"error": "Wrong request method"})
 
     def test_uploaded_image_too_big(self):
         with open("uploads/tests/test-5mb.png", "rb") as f:
