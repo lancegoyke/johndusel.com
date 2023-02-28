@@ -8,7 +8,11 @@ export default function Categories({
   return (
     <div className="categories">
       {categories.map((category) => {
-        return <span className="category">{category.name}</span>;
+        return (
+          <span className="category" key={category.slug}>
+            {category.name}
+          </span>
+        );
       })}
     </div>
   );
