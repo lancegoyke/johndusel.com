@@ -36,6 +36,10 @@ INSTALLED_APPS += ["debug_toolbar"] if DEBUG else []
 INTERNAL_IPS = ["127.0.0.1",] if DEBUG else []  # Django debug toolbar
 TEST_RUNNER = "cms.test_runner.TestRunner"
 
+ENVIRONMENT = env("ENVIRONMENT")
+if ENVIRONMENT == "production":
+    CSRF_COOKIE_SECURE = True
+    SESSION_COOKIE_SECURE = True
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
