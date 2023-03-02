@@ -22,9 +22,14 @@ def upload_image(request):
     # yes! save the file to model instance
     image = Image(image=file_obj)
     image.save()
+    location: str = ""
+    if settings.ENVIRONMENT == "production":
+        location = image.image.url
+    else:
+        location = f"{settings.DOMAIN}{image.image.url}"
     return JsonResponse(
         {
             "message": "Image uploaded successfully",
-            "location": f"{settings.DOMAIN}{image.image.url}",
+            "location": location,
         }
     )

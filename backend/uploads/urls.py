@@ -11,7 +11,4 @@ urlpatterns = [
 
 if settings.DEBUG:
     # Serve media files from development server
-    # https://docs.djangoproject.com/en/4.1/howto/static-files/#serving-static-files-during-development
-    # https://docs.djangoproject.com/en/4.1/howto/static-files/#serving-files-uploaded-by-a-user-during-development
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

@@ -21,6 +21,7 @@ ALLOWED_HOSTS: list[str] = env("ALLOWED_HOSTS").split(",")
 DOMAIN = env("DOMAIN")
 
 INSTALLED_APPS = [
+    "whitenoise.runserver_nostatic",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -36,23 +37,9 @@ INSTALLED_APPS += ["debug_toolbar"] if DEBUG else []
 INTERNAL_IPS = ["127.0.0.1",] if DEBUG else []  # Django debug toolbar
 TEST_RUNNER = "cms.test_runner.TestRunner"
 
-ENVIRONMENT = env("ENVIRONMENT")
-if ENVIRONMENT == "production":
-    CSRF_COOKIE_SECURE = True
-    SESSION_COOKIE_SECURE = True
-
-    import sentry_sdk
-    from sentry_sdk.integrations.django import DjangoIntegration
-
-    sentry_sdk.init(
-        dsn=env("SENTRY_DSN"),
-        integrations=[
-            DjangoIntegration(),
-        ],
-    )
-
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -116,6 +103,7 @@ STATIC_URL = "/static/"
 STATIC_ROOT = BASE_DIR / "staticfiles"
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
@@ -126,3 +114,28 @@ REST_FRAMEWORK = {
         "rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly"
     ]
 }
+
+ENVIRONMENT = env("ENVIRONMENT")
+if ENVIRONMENT == "production":
+    CSRF_COOKIE_SECURE = True
+    SESSION_COOKIE_SECURE = True
+
+    DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+    AWS_S3_ACCESS_KEY_ID = env("AWS_S3_ACCESS_KEY_ID")
+    AWS_S3_SECRET_ACCESS_KEY = env("AWS_S3_SECRET_ACCESS_KEY")
+    AWS_STORAGE_BUCKET_NAME = "johndusel.com"
+    AWS_DEFAULT_ACL = ""
+    AWS_QUERYSTRING_AUTH = False
+
+    if AWS_S3_ACCESS_KEY_ID and AWS_S3_SECRET_ACCESS_KEY and AWS_STORAGE_BUCKET_NAME:
+        AWS_LOCATION = "development" if DOMAIN == "http://127.0.0.1:8000" else "production"
+
+    import sentry_sdk
+    from sentry_sdk.integrations.django import DjangoIntegration
+
+    sentry_sdk.init(
+        dsn=env("SENTRY_DSN"),
+        integrations=[
+            DjangoIntegration(),
+        ],
+    )
