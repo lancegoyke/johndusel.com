@@ -69,11 +69,14 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "cms.wsgi.application"
 
+import dj_database_url
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-    }
+    # this automatically checks for the DATABASE_URL environment variable
+    "default": dj_database_url.config(
+        default="sqlite:///db.sqlite3",  # put database here if no DATABASE_URL
+        conn_max_age=600,
+        conn_health_checks=True,
+    )
 }
 
 AUTH_PASSWORD_VALIDATORS = [
