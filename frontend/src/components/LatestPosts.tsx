@@ -8,7 +8,7 @@ export default function LatestPosts({ posts }: { posts: PostInterface[] }) {
     <section className={styles.content}>
       <h2>Latest Posts</h2>
       {posts.map((post) => (
-        <article className={styles.article}>
+        <article className={styles.article} key={post.slug}>
           <h3>{post.title}</h3>
           <div className="post-meta">
             <Date dateString={post.created_at} />
