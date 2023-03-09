@@ -3,15 +3,19 @@
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  padding: 1.25rem;
+  padding: var(--s1);
   background-color: var(--color-light-primary);
   color: var(--color-dark-tertiary);
 }
 
 .menu a {
   color: var(--color-dark-tertiary);
-  margin-right: 1.25rem;
+  margin-right: var(--s1);
   font-size: 1.125rem;
+}
+
+.menu a:last-child {
+  margin-right: 0;
 }
 
 /* CSS for the logo */
