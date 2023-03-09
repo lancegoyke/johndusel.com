@@ -9,7 +9,6 @@
 }
 
 .menu a {
-  text-decoration: none;
   color: var(--color-dark-tertiary);
   margin-right: 1.25rem;
   font-size: 1.125rem;
