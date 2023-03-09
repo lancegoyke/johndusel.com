@@ -5,7 +5,7 @@ export default function Hero() {
     <div className={styles.heroContainer}>
       <div className={styles.hero}>
         <div className={styles.heroContent}>
-          <h1>{process.env.TITLE}</h1>
+          <h1>{process.env.SITE_TITLE}</h1>
           <p>
             Doggo ipsum pupperino long doggo maximum borkdrive fat boi noodle
             horse smol borking doggo with a long snoot for pats, shibe borkdrive
