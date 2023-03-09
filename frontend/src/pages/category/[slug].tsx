@@ -3,7 +3,7 @@ import Link from "next/link";
 import { GetStaticPaths, GetStaticProps } from "next";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
-import Date from "../../components/Date";
+import PostMeta from "../../components/PostMeta";
 import {
   CategoryInterface,
   PostInterface,
@@ -33,17 +33,16 @@ export default function CategoryPostList({
       <main>
         <div>
           <div className="center stack-recursive">
-            <h1>{category.name}</h1>
+            <h1>
+              Posts About <em>{category.name}</em>
+            </h1>
             <div className="articles">
               {posts.map((post) => (
                 <article key={post.slug}>
                   <Link href={`/${post.slug}`}>
                     <h2>{post.title}</h2>
                   </Link>
-                  <br />
-                  <div className="post-meta">
-                    <Date dateString={post.created_at} />
-                  </div>
+                  <PostMeta date={post.created_at} />
                 </article>
               ))}
             </div>
