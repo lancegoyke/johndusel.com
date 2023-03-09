@@ -1,9 +1,13 @@
-import styles from '../styles/Footer.module.css'
+import Link from "next/link";
+import styles from "../styles/Footer.module.css";
 
 export default function Footer() {
   return (
     <footer className={styles.footer}>
-      My Website &copy; 2023
+      <div>John Dusel &copy; 2023</div>/
+      <div>
+        Powered by <Link href="https://lancegoyke.com/">Lance Goyke</Link>
+      </div>
     </footer>
-  )
+  );
 }

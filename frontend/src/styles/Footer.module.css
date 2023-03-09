@@ -3,8 +3,14 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #2e2e2e;
-  color: #fff;
-  height: 3.125rem;
-  font-size: .875rem;
+  gap: var(--s0);
+  background-color: var(--color-dark-secondary);
+  color: var(--color-light-secondary);
+  min-height: 3.125rem;
+  font-size: 14px;
+}
+
+.footer a {
+  color: inherit;
+  text-decoration: underline;
 }
