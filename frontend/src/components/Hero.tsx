@@ -7,12 +7,21 @@ export default function Hero() {
         <div className={styles.heroContent}>
           <h1>{process.env.SITE_TITLE}</h1>
           <p>
-            Doggo ipsum pupperino long doggo maximum borkdrive fat boi noodle
-            horse smol borking doggo with a long snoot for pats, shibe borkdrive
-            many pats.
+            <strong>
+              <em>
+                I am an Athletic Trainer and Strength & Conditioning Coach for
+                the Atlanta Hawks.
+              </em>
+            </strong>
+          </p>
+          <p>
+            I write about my experience working along the entire rehabilitation
+            to performance spectrum.
           </p>
           <div className={styles.signup}>
-            <p className={styles.cta}>Get notified when a new post comes out</p>
+            <p className={styles.cta}>
+              Sign up to get notified when a new post comes out:
+            </p>
             <form>
               <input type="email" placeholder="you@example.com" required />
               <button type="submit">Subscribe</button>
