@@ -2,7 +2,7 @@
 .menu {
   display: flex;
   justify-content: flex-end;
-  align-items: center;
+  align-items: baseline;
   padding: var(--s1);
   background-color: var(--color-light-primary);
   color: var(--color-dark-tertiary);
