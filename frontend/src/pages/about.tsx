@@ -54,12 +54,12 @@ export default function About() {
               <ul>
                 <li>Certified Athletic Trainer</li>
                 <li>
-                  Master's Degree in Sport Science and Coach Education from East
-                  Tennessee State University
+                  Master&apos;s Degree in Sport Science and Coach Education from
+                  East Tennessee State University
                 </li>
                 <li>
-                  Bachelor's Degree in Athletic Training from University of New
-                  England
+                  Bachelor&apos;s Degree in Athletic Training from University of
+                  New England
                 </li>
               </ul>
             </div>
