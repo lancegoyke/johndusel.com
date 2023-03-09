@@ -1,8 +1,7 @@
 import Head from "next/head";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import Date from "../components/Date";
-import Categories from "../components/Categories";
+import PostMeta from "../components/PostMeta";
 import { getPostSlugs } from "../utils/getPostSlugs";
 import getPost from "../utils/getPost";
 import { PostInterface } from "../interfaces/PostInterface";
@@ -25,10 +24,7 @@ export default function Post({ post }: { post: PostInterface }) {
         <div>
           <div className="center stack-recursive">
             <h1>{post.title}</h1>
-            <div className="post-meta">
-              {post.categories && <Categories categories={post.categories} />}
-              <Date dateString={post.created_at} />
-            </div>
+            <PostMeta categories={post.categories} date={post.created_at} />
             <div dangerouslySetInnerHTML={{ __html: post.body }}></div>
           </div>
         </div>

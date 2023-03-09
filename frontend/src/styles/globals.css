@@ -1,11 +1,15 @@
 :root {
   /* Colors */
-  --color-primary: teal;
-  --color-secondary: blueviolet;
+  --color-primary: hsl(180, 100%, 23%);
+  --color-primary-light: hsl(180, 100%, 27%);
+  --color-primary-dark: hsl(180, 100%, 20%);
+  --color-secondary: hsl(224, 77%, 36%);
+  --color-secondary-light: hsl(224, 69%, 74%);
+  --color-secondary-dark: hsl(224, 100%, 25%);
   --color-tertiary: pink;
   --color-light-primary: hsl(0, 0%, 100%);
-  --color-light-secondary: hsl(194, 100%, 95%);
-  --color-light-tertiary: hsl(0, 0%, 95%);
+  --color-light-secondary: hsl(0, 0%, 96%);
+  --color-light-tertiary: hsl(0, 0%, 91%);
   --color-light-quaternary: hsl(0, 0%, 80%);
   --color-mid-dark: hsl(0, 0%, 40%);
   --color-mid-mid: hsl(0, 0%, 50%);
@@ -22,7 +26,10 @@
   /* Spacing */
   --measure: 60ch;
   --ratio: 1.5;
+  --border-thick: 0.15rem;
+  --border-thin: 0.05rem;
   --border-radius-sharp: var(--s-5);
+  --border-radius-mid: var(--s-3);
   --border-radius-soft: var(--s1);
   --s-5: calc(var(--s-4) / var(--ratio));
   --s-4: calc(var(--s-3) / var(--ratio));
@@ -63,8 +70,13 @@ footer {
 }
 
 a {
-  color: inherit;
+  color: var(--color-primary);
   text-decoration: none;
+}
+
+a:hover,
+a:focus {
+  text-decoration: underline;
 }
 
 img {
@@ -93,6 +105,10 @@ main {
   margin-block-start: var(--space, 1.5rem);
 }
 
+.stack-tight > * + * {
+  margin-block-start: var(--s-1);
+}
+
 /* Recursive stack applied to all sub-elements */
 .stack-recursive {
   display: flex;
@@ -118,22 +134,15 @@ main {
 }
 
 /* Post Metadata */
-.stack-recursive .post-meta * {
-  margin-block: 0;
-}
-
 .post-meta {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
-  gap: var(--s-1);
-  margin-block-start: var(--s-1);
-  margin-block-end: var(--s-1);
 }
 
 /* Dates */
 time {
-  color: var(--color-mid-light);
+  color: var(--color-mid-dark);
   font-style: italic;
 }
 
@@ -144,13 +153,14 @@ time {
   flex-wrap: wrap;
   gap: var(--s-1);
   margin-block-start: var(--s-1);
-  margin-block-end: var(--s-1);
 }
 
 .category {
-  background-color: var(--color-light-tertiary);
-  border-radius: var(--border-radius-sharp);
-  color: var(--color-dark-tertiary);
+  color: var(--color-dark-secondary);
+  background-color: var(--color-secondary-light);
+  border: 1px solid var(--color-secondary-dark);
+  border-radius: var(--border-radius-soft);
+  box-shadow: 0.5px 1px 0 0.5px var(--color-dark-secondary);
   display: inline-block;
   font-size: var(--s-1);
   font-weight: 700;

@@ -41,14 +41,14 @@
 .heroContent form input[type="email"] {
   width: 100%;
   padding: 1.25rem;
-  border: 1px solid var(--color-dark-secondary);
-  border-radius: 0.25rem;
+  border: var(--border-thin) solid var(--color-dark-secondary);
+  border-radius: var(--border-radius-mid);
   font-size: 1.125rem;
 }
 
 .heroContent form button {
   padding: 1.25rem;
-  border: 1px solid var(--color-dark-secondary);
+  border: var(--border-thin) solid var(--color-dark-secondary);
   border-radius: 0.25rem;
   font-size: 1.125rem;
   background-color: var(--color-primary);
