@@ -2,7 +2,9 @@
 .heroContainer {
   width: 100%;
   margin: 0 auto;
-  background-color: var(--color-light-primary);
+  margin-bottom: var(--s4);
+  padding-top: var(--s3);
+  padding-bottom: var(--s2);
   color: var(--color-dark-secondary);
 }
 
@@ -10,7 +12,7 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  height: 35vh;
+  min-height: 35vh;
 }
 
 .heroContent {
