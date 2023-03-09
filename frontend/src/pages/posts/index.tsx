@@ -3,8 +3,7 @@ import Link from "next/link";
 import { GetStaticProps } from "next";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
-import Categories from "../../components/Categories";
-import Date from "../../components/Date";
+import PostMeta from "../../components/PostMeta";
 import {
   CategoryInterface,
   PostInterface,
@@ -20,7 +19,7 @@ export default function CategoryPostList({
   return (
     <>
       <Head>
-        <title>All Posts</title>
+        <title>Latest Posts</title>
         <meta
           name="description"
           content="Professional work in an impressive field"
@@ -30,25 +29,22 @@ export default function CategoryPostList({
       </Head>
       <Navbar />
       <main>
-        <div>
-          <div className="center stack-recursive">
-            <h1>All Posts</h1>
-            <div className="articles">
-              {posts.map((post) => (
-                <article key={post.slug}>
-                  <Link href={`/${post.slug}`}>
-                    <h2>{post.title}</h2>
-                  </Link>
-                  <br />
-                  <div className="post-meta">
-                    <Date dateString={post.created_at} />
-                    {post.categories && (
-                      <Categories categories={post.categories} />
-                    )}
-                  </div>
-                </article>
-              ))}
-            </div>
+        <div className="center stack-recursive">
+          <h1>Latest Posts</h1>
+          <div className="articles">
+            {posts.map((post) => (
+              <article key={post.slug}>
+                <Link href={`/${post.slug}`}>
+                  <h2>{post.title}</h2>
+                </Link>
+                <div className="post-meta">
+                  <PostMeta
+                    categories={post.categories}
+                    date={post.created_at}
+                  />
+                </div>
+              </article>
+            ))}
           </div>
         </div>
       </main>

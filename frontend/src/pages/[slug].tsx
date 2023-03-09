@@ -21,12 +21,10 @@ export default function Post({ post }: { post: PostInterface }) {
       </Head>
       <Navbar />
       <main>
-        <div>
-          <div className="center stack-recursive">
-            <h1>{post.title}</h1>
-            <PostMeta categories={post.categories} date={post.created_at} />
-            <div dangerouslySetInnerHTML={{ __html: post.body }}></div>
-          </div>
+        <div className="center stack-recursive">
+          <h1>{post.title}</h1>
+          <PostMeta categories={post.categories} date={post.created_at} />
+          <div dangerouslySetInnerHTML={{ __html: post.body }}></div>
         </div>
       </main>
       <Footer />
