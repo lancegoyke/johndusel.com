@@ -26,8 +26,8 @@
   /* Spacing */
   --measure: 60ch;
   --ratio: 1.5;
-  --border-thick: 0.15rem;
-  --border-thin: 0.05rem;
+  --border-thick: 2px;
+  --border-thin: 1px;
   --border-radius-sharp: var(--s-5);
   --border-radius-mid: var(--s-3);
   --border-radius-soft: var(--s1);
@@ -109,6 +109,10 @@ main {
   margin-block-start: var(--s-1);
 }
 
+.stack-loose > * + * {
+  margin-block-start: var(--s2);
+}
+
 /* Recursive stack applied to all sub-elements */
 .stack-recursive {
   display: flex;
@@ -122,6 +126,14 @@ main {
 
 .stack-recursive * + * {
   margin-block-start: var(--space, 1.5rem);
+}
+
+.stack-recursive-tight * + * {
+  margin-block-start: var(--s-1);
+}
+
+.stack-recursive-loose * + * {
+  margin-block-start: var(--s2);
 }
 
 /* Horizontal centering */
