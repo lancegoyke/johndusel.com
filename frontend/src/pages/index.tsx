@@ -19,13 +19,11 @@ export default function Home({ posts }: { posts: PostInterface[] }) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Navbar />
+      <Navbar showLogo={false} />
       <main>
-        <div>
-          <Hero />
-          <div className="center max-inline-size:large">
-            <LatestPosts posts={posts} />
-          </div>
+        <Hero />
+        <div className="center max-inline-size:large">
+          <LatestPosts posts={posts} />
         </div>
       </main>
       <Footer />

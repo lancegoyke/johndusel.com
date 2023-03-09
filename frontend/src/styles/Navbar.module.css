@@ -1,7 +1,7 @@
 /* CSS for the menu */
 .menu {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
   padding: 1.25rem;
   background-color: var(--color-light-primary);
