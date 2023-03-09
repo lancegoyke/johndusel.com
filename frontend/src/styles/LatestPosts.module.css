@@ -12,8 +12,8 @@
   margin-right: auto;
   background-color: var(--color-light-secondary);
   padding: var(--s2);
-  border: var(--border-thick) solid var(--color-dark-secondary);
   border-radius: var(--border-radius-mid);
+  box-shadow: 0 0 15px 5px var(--color-light-tertiary);
 }
 
 .article h3 {

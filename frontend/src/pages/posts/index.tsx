@@ -29,7 +29,7 @@ export default function CategoryPostList({
       </Head>
       <Navbar />
       <main>
-        <div className="center stack-recursive">
+        <div className="center stack-recursive stack-recursive-loose">
           <h1>Latest Posts</h1>
           <div className="articles">
             {posts.map((post) => (

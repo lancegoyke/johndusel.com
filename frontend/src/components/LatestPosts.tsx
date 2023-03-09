@@ -5,7 +5,7 @@ import { PostInterface } from "../interfaces/PostInterface";
 
 export default function LatestPosts({ posts }: { posts: PostInterface[] }) {
   return (
-    <section className={`stack ${styles.content}`}>
+    <section className={`stack stack-loose ${styles.content}`}>
       <h2>Latest Posts</h2>
       {posts.map((post) => (
         <article className={styles.article} key={post.slug}>
