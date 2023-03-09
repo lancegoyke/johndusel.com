@@ -105,6 +105,10 @@ main {
   margin-block-start: var(--space, 1.5rem);
 }
 
+.stack-tight > * + * {
+  margin-block-start: var(--s-1);
+}
+
 /* Recursive stack applied to all sub-elements */
 .stack-recursive {
   display: flex;
