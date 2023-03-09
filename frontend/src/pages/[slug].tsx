@@ -14,7 +14,7 @@ export default function Post({ post }: { post: PostInterface }) {
         <title>{post.title}</title>
         <meta
           name="description"
-          content="Professional work in an impressive field"
+          content="Recent thoughts about athletic performance"
         />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />

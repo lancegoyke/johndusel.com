@@ -21,31 +21,29 @@ export default function CategoryPostList({
   return (
     <>
       <Head>
-        <title>{category.name}</title>
+        <title>Posts About {category.name}</title>
         <meta
           name="description"
-          content="Professional work in an impressive field"
+          content={`Writing related to ${category.name}`}
         />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Navbar />
       <main>
-        <div>
-          <div className="center stack-recursive">
-            <h1>
-              Posts About <em>{category.name}</em>
-            </h1>
-            <div className="articles">
-              {posts.map((post) => (
-                <article key={post.slug}>
-                  <Link href={`/${post.slug}`}>
-                    <h2>{post.title}</h2>
-                  </Link>
-                  <PostMeta date={post.created_at} />
-                </article>
-              ))}
-            </div>
+        <div className="center stack-recursive">
+          <h1>
+            Posts About <em>{category.name}</em>
+          </h1>
+          <div className="articles">
+            {posts.map((post) => (
+              <article key={post.slug}>
+                <Link href={`/${post.slug}`}>
+                  <h2>{post.title}</h2>
+                </Link>
+                <PostMeta date={post.created_at} />
+              </article>
+            ))}
           </div>
         </div>
       </main>

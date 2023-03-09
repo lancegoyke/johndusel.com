@@ -11,11 +11,8 @@ export default function Home({ posts }: { posts: PostInterface[] }) {
   return (
     <>
       <Head>
-        <title>Admin User</title>
-        <meta
-          name="description"
-          content="Professional work in an impressive field"
-        />
+        <title>{process.env.TITLE}</title>
+        <meta name="description" content={process.env.SITE_DESCRIPTION} />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
