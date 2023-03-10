@@ -211,11 +211,29 @@ time {
   padding-block: var(--s-2);
   padding-inline: var(--s-1);
   text-transform: uppercase;
+  cursor: pointer;
 }
 
-.category:hover,
-.category:focus {
+.category a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.category:hover {
   box-shadow: inset 0px 1px 0 0.5px var(--color-dark-secondary);
+}
+
+.category a:focus {
+  text-decoration: underline;
+}
+
+.category:focus-within {
+  box-shadow: 0 0 0 0.25rem;
+}
+
+.category:focus-within a:focus {
+  outline: none;
+  text-decoration: none;
 }
 
 /* Utilities */
