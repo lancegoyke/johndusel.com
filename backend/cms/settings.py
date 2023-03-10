@@ -8,6 +8,8 @@ env = environ.Env(
     DEBUG=(bool, False),
     SECRET_KEY=(str, "django-insecure-x#j-7*wtpxc^r$r-2$j3)&pf1_(3w=j75uf0-rk_@wq2545^1%"),
     DOMAIN=(str, "http://127.0.0.1:8000"),
+    STATIC_ROOT=(str, BASE_DIR / "staticfiles"),
+    MEDIA_ROOT=(str, BASE_DIR / "media"),
 )
 
 # run server using production environment variables with this command:
@@ -103,9 +105,9 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 STATIC_URL = "/static/"
-STATIC_ROOT = BASE_DIR / "staticfiles"
+STATIC_ROOT = env("STATIC_ROOT")
 MEDIA_URL = "/media/"
-MEDIA_ROOT = BASE_DIR / "media"
+MEDIA_ROOT = env("MEDIA_ROOT")
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
