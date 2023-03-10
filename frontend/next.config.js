@@ -1,5 +1,5 @@
 /** @type {import('next').NextConfig} */
-import { withSentryConfig } from "@sentry/nextjs";
+const withSentryConfig = require("@sentry/nextjs");
 
 const nextConfig = {
   reactStrictMode: true,
