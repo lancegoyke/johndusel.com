@@ -10,10 +10,8 @@ export default function Categories({
     <div className="categories">
       {categories.map((category) => {
         return (
-          <div className="category">
-            <Link href={`/category/${category.slug}`} key={category.slug}>
-              {category.name}
-            </Link>
+          <div className="category" key={category.slug}>
+            <Link href={`/category/${category.slug}`}>{category.name}</Link>
           </div>
         );
       })}
