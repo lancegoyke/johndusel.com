@@ -1,4 +1,6 @@
 /** @type {import('next').NextConfig} */
+import { withSentryConfig } from "@sentry/nextjs";
+
 const nextConfig = {
   reactStrictMode: true,
   staticPageGenerationTimeout: 1000,
@@ -9,4 +11,4 @@ const nextConfig = {
   },
 };
 
-module.exports = nextConfig;
+export default withSentryConfig(nextConfig);
