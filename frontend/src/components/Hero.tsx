@@ -8,12 +8,7 @@ export default function Hero() {
     <div className={styles.heroContainer}>
       <div className={styles.hero}>
         <div className={styles.heroImage}>
-          <Image
-            src={pic}
-            alt="John Dusel on basketball court"
-            width={300}
-            height={400}
-          />
+          <Image src={pic} alt="John Dusel on basketball court" />
         </div>
         <div className={styles.heroContent}>
           <h1>{process.env.SITE_TITLE}</h1>
