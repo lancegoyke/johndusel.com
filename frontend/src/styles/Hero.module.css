@@ -1,23 +1,54 @@
 /* CSS for the hero section */
+.heroContainer {
+  display: flex;
+  justify-content: center;
+  margin-bottom: var(--s4);
+  padding: var(--s1);
+  color: var(--color-dark-secondary);
+  min-height: 35vh;
+}
+
 .hero h1 {
   font-size: 3rem;
   font-weight: 900;
   text-shadow: -3px 1px 0 var(--color-primary-light);
 }
 
-.heroContainer {
-  width: 100%;
-  margin: 0 auto;
-  margin-bottom: var(--s4);
-  padding: var(--s1);
-  color: var(--color-dark-secondary);
-}
-
 .hero {
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  min-height: 35vh;
+  flex-wrap: wrap;
+  gap: var(--s2);
+  align-items: center;
+}
+
+.hero > * {
+  flex-grow: 1;
+  flex-basis: calc((27rem - 100%) * 999);
+}
+
+.hero > :nth-last-child(n+ 3),
+.hero > :nth-last-child(n+ 3) ~ * {
+  flex-basis: 100%;
+}
+
+.heroImage {
+  --n: 3;
+  --d: 4;
+  aspect-ratio: var(--n) / var(--d);
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: var(--border-radius-mid);
+  max-height: 600px;
+}
+
+.heroImage > img,
+.heroImage > video {
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: cover;
+  object-position: center;
 }
 
 .heroContent {

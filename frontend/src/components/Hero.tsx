@@ -1,10 +1,20 @@
+import Image from "next/image";
 import Link from "next/link";
+import pic from "../../public/john-dusel-clapping-on-court-in-red_2000x3000.jpg";
 import styles from "../styles/Hero.module.css";
 
 export default function Hero() {
   return (
     <div className={styles.heroContainer}>
       <div className={styles.hero}>
+        <div className={styles.heroImage}>
+          <Image
+            src={pic}
+            alt="John Dusel on basketball court"
+            width={300}
+            height={400}
+          />
+        </div>
         <div className={styles.heroContent}>
           <h1>{process.env.SITE_TITLE}</h1>
           <p>
