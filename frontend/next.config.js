@@ -9,6 +9,9 @@ const nextConfig = {
     SITE_DESCRIPTION:
       "Peak performance and injury prevention in professional sports",
   },
+  sentry: {
+    hideSourceMaps: true,
+  },
 };
 
 module.exports = withSentryConfig(nextConfig);
