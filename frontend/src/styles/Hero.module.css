@@ -1,4 +1,10 @@
 /* CSS for the hero section */
+.hero h1 {
+  font-size: 3rem;
+  font-weight: 900;
+  text-shadow: -3px 1px 0 var(--color-primary-light);
+}
+
 .heroContainer {
   width: 100%;
   margin: 0 auto;

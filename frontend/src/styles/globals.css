@@ -1,7 +1,7 @@
 :root {
   /* Colors */
   --color-primary: hsl(180, 100%, 23%);
-  --color-primary-light: hsl(180, 100%, 27%);
+  --color-primary-light: hsl(180, 69%, 69%);
   --color-primary-dark: hsl(180, 100%, 20%);
 
   --color-secondary: hsl(224, 77%, 36%);
@@ -82,6 +82,11 @@ h4,
 h5,
 h6 {
   font-family: sans-serif;
+}
+
+h1 {
+  font-weight: 900;
+  font-size: var(--s2);
 }
 
 a {
