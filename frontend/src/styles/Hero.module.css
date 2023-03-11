@@ -70,13 +70,25 @@
 
 .heroContent form {
   display: flex;
-  flex-direction: row;
+  flex-wrap: wrap;
+  gap: var(--s0);
   justify-content: flex-start;
   align-items: baseline;
   max-width: var(--measure);
 }
 
+.heroContent form > * {
+  flex-grow: 1;
+  flex-basis: calc((23rem - 100%) * 999);
+}
+
+.heroContent form > :nth-last-child(n+ 3),
+.heroContent form > :nth-last-child(n+ 3) ~ * {
+  flex-basis: 100%;
+}
+
 .heroContent form input[type="email"] {
+  flex: 3;
   width: 100%;
   padding: 1.25rem;
   border: var(--border-thin) solid var(--color-dark-secondary);
@@ -92,5 +104,4 @@
   background-color: var(--color-primary);
   color: var(--color-light-primary);
   margin-top: 0;
-  margin-left: 1.25rem;
 }
