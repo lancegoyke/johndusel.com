@@ -3,7 +3,7 @@
   display: flex;
   justify-content: center;
   margin-bottom: var(--s4);
-  padding: var(--s1);
+  padding: 0 var(--s1);
   color: var(--color-dark-secondary);
   min-height: 35vh;
 }
@@ -23,7 +23,7 @@
 
 .hero > * {
   flex-grow: 1;
-  flex-basis: calc((27rem - 100%) * 999);
+  flex-basis: calc((36rem - 100%) * 999);
 }
 
 .hero > :nth-last-child(n+ 3),
@@ -32,8 +32,8 @@
 }
 
 .heroImage {
-  --n: 3;
-  --d: 4;
+  --n: 1;
+  --d: 1;
   aspect-ratio: var(--n) / var(--d);
   overflow: hidden;
   display: flex;
