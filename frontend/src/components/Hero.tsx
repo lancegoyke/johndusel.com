@@ -1,3 +1,4 @@
+import Link from "next/link";
 import styles from "../styles/Hero.module.css";
 
 export default function Hero() {
@@ -26,6 +27,15 @@ export default function Hero() {
               <input type="email" placeholder="you@example.com" required />
               <button type="submit">Subscribe</button>
             </form>
+          </div>
+          <div className="alert warning">
+            <p>
+              <em>Upcoming:</em> I&apos;ll be speaking at the{" "}
+              <Link href="https://elitebasketballrehabconference.com/">
+                Elite Basketball Rehab Conference
+              </Link>{" "}
+              in July 2023
+            </p>
           </div>
         </div>
       </div>

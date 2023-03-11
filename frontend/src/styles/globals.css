@@ -22,10 +22,18 @@
   --color-dark-tertiary: hsl(0, 0%, 25%);
   --color-dark-quaternary: hsl(0, 0%, 50%);
 
-  --color-error: hsl(354, 70%, 54%);
-  --color-warning: hsl(45, 100%, 51%);
-  --color-success: hsl(134, 61%, 41%);
-  --color-info: hsl(188, 78%, 41%);
+  --color-error: hsl(354, 70%, 85%);
+  --color-error-border: hsl(354, 70%, 54%);
+  --color-error-text: hsl(354, 70%, 25%);
+  --color-warning: hsl(45, 100%, 85%);
+  --color-warning-border: hsl(45, 100%, 51%);
+  --color-warning-text: hsl(45, 100%, 25%);
+  --color-success: hsl(134, 61%, 85%);
+  --color-success-border: hsl(134, 61%, 41%);
+  --color-success-text: hsl(134, 61%, 25%);
+  --color-info: hsl(188, 78%, 85%);
+  --color-info-border: hsl(188, 78%, 41%);
+  --color-info-text: hsl(188, 78%, 25%);
 
   /* Spacing and lines */
   --measure: 60ch;
@@ -258,4 +266,34 @@ time {
 
 .max-inline-size\:larger {
   max-inline-size: calc(var(--measure) * 2);
+}
+
+.alert {
+  max-inline-size: var(--measure);
+  padding: var(--s1) var(--s2);
+  border-width: 1px;
+  border-radius: var(--border-radius-sharp);
+}
+
+.alert.warning {
+  color: var(--color-warning-text);
+  background-color: var(--color-warning);
+  border-color: var(--color-warning-border);
+}
+
+.alert.success {
+  color: var(--color-success-text);
+  background-color: var(--color-success);
+  border-color: var(--color-success-border);
+}
+.alert.error {
+  color: var(--color-error-text);
+  background-color: var(--color-error);
+  border-color: var(--color-error-border);
+}
+
+.alert.info {
+  color: var(--color-info-text);
+  background-color: var(--color-info);
+  border-color: var(--color-info-border);
 }
