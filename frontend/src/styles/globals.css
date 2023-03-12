@@ -22,6 +22,8 @@
   --color-dark-tertiary: hsl(0, 0%, 25%);
   --color-dark-quaternary: hsl(0, 0%, 50%);
 
+  --color-shadow: hsl(0, 0%, 0%, 5%);
+
   --color-error: hsl(354, 70%, 85%);
   --color-error-border: hsl(354, 70%, 54%);
   --color-error-text: hsl(354, 70%, 25%);

@@ -12,8 +12,9 @@
   margin-right: auto;
   background-color: var(--color-light-secondary);
   padding: var(--s2);
+  border: var(--border-thin) solid var(--color-light-tertiary);
   border-radius: var(--border-radius-mid);
-  box-shadow: 0 0 15px 5px var(--color-light-tertiary);
+  box-shadow: 0 0 15px 5px var(--color-shadow);
 }
 
 .article h3 {
