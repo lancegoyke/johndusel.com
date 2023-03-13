@@ -22,10 +22,8 @@ export default function CategoryPostList({
         <title>Latest Posts</title>
         <meta
           name="description"
-          content="Professional work in an impressive field"
+          content="Latest writing about high performance athletics from John Dusel"
         />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
       </Head>
       <Navbar />
       <main>

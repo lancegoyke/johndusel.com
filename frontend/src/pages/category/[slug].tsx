@@ -26,8 +26,6 @@ export default function CategoryPostList({
           name="description"
           content={`Writing related to ${category.name}`}
         />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
       </Head>
       <Navbar />
       <main>

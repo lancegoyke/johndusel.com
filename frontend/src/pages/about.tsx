@@ -12,8 +12,6 @@ export default function About() {
           name="description"
           content="I am an Athletic Trainer and Strength & Conditioning Coach for the Atlanta Hawks"
         />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
       </Head>
       <Navbar />
       <main id="about">
