@@ -68,7 +68,7 @@
   margin-block-start: var(--space, 1.25rem);
 }
 
-.heroContent form {
+.shown {
   display: flex;
   flex-wrap: wrap;
   gap: var(--s0);
@@ -77,17 +77,17 @@
   max-width: var(--measure);
 }
 
-.heroContent form > * {
+.shown > * {
   flex-grow: 1;
   flex-basis: calc((23rem - 100%) * 999);
 }
 
-.heroContent form > :nth-last-child(n+ 3),
-.heroContent form > :nth-last-child(n+ 3) ~ * {
+.shown > :nth-last-child(n+ 3),
+.shown > :nth-last-child(n+ 3) ~ * {
   flex-basis: 100%;
 }
 
-.heroContent form input[type="email"] {
+.subscribeForm input[type="email"] {
   flex: 3;
   width: 100%;
   padding: 1.25rem;
@@ -96,7 +96,7 @@
   font-size: 1.125rem;
 }
 
-.heroContent form button {
+.subscribeForm button {
   padding: 1.25rem;
   border: var(--border-thin) solid var(--color-dark-secondary);
   border-radius: 0.25rem;
