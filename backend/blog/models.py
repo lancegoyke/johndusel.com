@@ -6,6 +6,11 @@ class Post(models.Model):
     title = models.CharField(max_length=255)
     slug = models.SlugField(max_length=255, unique=True)
     body = models.TextField()
+    excerpt = models.CharField(
+        "Short summary of the post, used for SEO",
+        max_length=160,
+        blank=True,
+    )
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

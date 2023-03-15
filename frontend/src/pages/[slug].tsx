@@ -12,10 +12,7 @@ export default function Post({ post }: { post: PostInterface }) {
     <>
       <Head>
         <title>{post.title}</title>
-        <meta
-          name="description"
-          content="Thoughts about athletic performance"
-        />
+        <meta name="description" content={post.excerpt} />
       </Head>
       <Navbar />
       <main>

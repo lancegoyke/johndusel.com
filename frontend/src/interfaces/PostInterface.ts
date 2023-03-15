@@ -15,6 +15,7 @@ export interface PostInterface {
   };
   categories: [category: CategoryInterface];
   body: string;
+  excerpt: string;
   created_at: string;
   updated_at: string;
 }
