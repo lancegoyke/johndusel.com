@@ -6,6 +6,7 @@ import LatestPosts from "../components/LatestPosts";
 import Footer from "../components/Footer";
 import { getLatestPosts } from "../utils/getPosts";
 import { PostInterface } from "../interfaces/PostInterface";
+import { generateRssFeed } from "@/utils/generateRssFeed";
 
 export default function Home({ posts }: { posts: PostInterface[] }) {
   return (
@@ -27,6 +28,7 @@ export default function Home({ posts }: { posts: PostInterface[] }) {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
+  await generateRssFeed();
   const posts = await getLatestPosts();
   return {
     props: { posts },
