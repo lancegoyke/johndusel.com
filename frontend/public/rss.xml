@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0">
+    <channel>
+        <title>John Dusel</title>
+        <link>http://localhost:3000</link>
+        <description>Peak performance and injury prevention in professional sports</description>
+        <lastBuildDate>Thu, 16 Mar 2023 15:54:36 GMT</lastBuildDate>
+        <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
+        <generator>https://github.com/jpmonette/feed</generator>
+        <language>en</language>
+        <copyright>© 2023 John Dusel</copyright>
+        <item>
+            <title><![CDATA[Images Upon Us]]></title>
+            <link>http://localhost:3000/images-upon-us</link>
+            <guid>http://localhost:3000/images-upon-us</guid>
+            <pubDate>Sun, 26 Feb 2023 18:49:37 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[They Laughed Until I Started to Play...]]></title>
+            <link>http://localhost:3000/they-laughed-until-i-started-to-play</link>
+            <guid>http://localhost:3000/they-laughed-until-i-started-to-play</guid>
+            <pubDate>Sun, 26 Feb 2023 18:44:47 GMT</pubDate>
+            <description><![CDATA[Test post about dogs]]></description>
+        </item>
+        <item>
+            <title><![CDATA[He Followed Me Back Home]]></title>
+            <link>http://localhost:3000/he-followed-me-back-home</link>
+            <guid>http://localhost:3000/he-followed-me-back-home</guid>
+            <pubDate>Sun, 26 Feb 2023 18:43:55 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Writing for Thinking]]></title>
+            <link>http://localhost:3000/writing-for-thinking</link>
+            <guid>http://localhost:3000/writing-for-thinking</guid>
+            <pubDate>Sun, 26 Feb 2023 18:31:34 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Heavy Squats Increase Vertical Jump Height (With Some Caveats)]]></title>
+            <link>http://localhost:3000/heavy-squats-vertical-jump</link>
+            <guid>http://localhost:3000/heavy-squats-vertical-jump</guid>
+            <pubDate>Wed, 15 Feb 2023 14:42:50 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Hamstrings Are Overrated?]]></title>
+            <link>http://localhost:3000/hamstrings-overrated</link>
+            <guid>http://localhost:3000/hamstrings-overrated</guid>
+            <pubDate>Sun, 12 Feb 2023 00:47:15 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[The Biceps Reign Supreme]]></title>
+            <link>http://localhost:3000/biceps</link>
+            <guid>http://localhost:3000/biceps</guid>
+            <pubDate>Sun, 12 Feb 2023 00:47:15 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Hello World!]]></title>
+            <link>http://localhost:3000/hello-world</link>
+            <guid>http://localhost:3000/hello-world</guid>
+            <pubDate>Sun, 12 Feb 2023 00:47:15 GMT</pubDate>
+        </item>
+    </channel>
+</rss>
