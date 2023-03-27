@@ -1,7 +1,6 @@
 from django.contrib import admin
-from django.db import models
 
-from .models import Category, Post
+from .models import Category, Post, Testimonial
 
 
 @admin.register(Post)
@@ -22,3 +21,17 @@ class PostAdmin(admin.ModelAdmin):
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ("name", "slug")
     prepopulated_fields = {"slug": ("name",)}
+
+
+@admin.register(Testimonial)
+class TestimonialAdmin(admin.ModelAdmin):
+    list_display = ("name", "created_at", "updated_at")
+    list_filter = ("created_at", "updated_at")
+    search_fields = ("name", "body")
+    prepopulated_fields = {"slug": ("name",)}
+
+    class Media:
+        js = (
+            "tinymce/tinymce.min.js",  # TinyMCE
+            "js/tinyInject.js",  # initializes TinyMCE with config
+        )
