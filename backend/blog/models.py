@@ -32,3 +32,16 @@ class Category(models.Model):
 
     def __str__(self) -> str:
         return self.name
+
+
+class Testimonial(models.Model):
+    name = models.CharField(max_length=255)
+    slug = models.SlugField(max_length=255, unique=True)
+    body = models.TextField()
+    title = models.CharField(max_length=255, blank=True)
+    company = models.CharField(max_length=255, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self) -> str:
+        return f"{self.name} testimonial"

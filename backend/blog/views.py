@@ -1,7 +1,9 @@
 from rest_framework import generics
 
-from .models import Post, Category
-from .serializers import PostSerializer, CategorySerializer
+from .models import Post, Category, Testimonial
+from .serializers import (
+    PostSerializer, CategorySerializer, TestimonialSerializer
+)
 
 
 class PostListLatestAPIView(generics.ListAPIView):
@@ -49,4 +51,15 @@ class CategoryListAPIView(generics.ListAPIView):
 class CategoryDetailAPIView(generics.RetrieveAPIView):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
+    lookup_field = "slug"
+
+
+class TestimonialListAPIView(generics.ListAPIView):
+    queryset = Testimonial.objects.order_by("-created_at")
+    serializer_class = TestimonialSerializer
+
+
+class TestimonialDetailAPIView(generics.RetrieveAPIView):
+    queryset = Testimonial.objects.all()
+    serializer_class = TestimonialSerializer
     lookup_field = "slug"

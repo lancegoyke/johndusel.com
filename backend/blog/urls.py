@@ -7,10 +7,15 @@ from .views import (
     PostListLatestAPIView,
     PostDetailAPIView,
     CategoryListAPIView,
+    TestimonialListAPIView,
+    TestimonialDetailAPIView,
 )
 
 
 urlpatterns = [
+    #
+    # POSTS
+    #
     path(
         "categories/<str:slug>/",
         CategoryDetailAPIView.as_view(),
@@ -25,4 +30,14 @@ urlpatterns = [
     path("posts/<str:slug>/", PostDetailAPIView.as_view(), name="post_detail"),
     path("posts/", PostListAPIView.as_view(), name="posts"),
     path("categories/", CategoryListAPIView.as_view(), name="categories"),
+
+    #
+    # TESTIMONIALS
+    #
+    path("testimonials/", TestimonialListAPIView.as_view(), name="testimonials"),
+    path(
+        "testimonials/<str:slug>/",
+        TestimonialDetailAPIView.as_view(),
+        name="testimonial_detail",
+    ),
 ]
