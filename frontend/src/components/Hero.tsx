@@ -1,7 +1,6 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import Script from "next/script";
 import pic from "../../public/john-dusel-clapping-on-court-in-red_2000x3000.jpg";
 import styles from "../styles/Hero.module.css";
 
