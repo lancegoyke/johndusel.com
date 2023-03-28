@@ -10,6 +10,7 @@ import { PostInterface } from "../interfaces/PostInterface";
 import { TestimonialInterface } from "@/interfaces/TestimonialInterface";
 import { generateRssFeed } from "@/utils/generateRssFeed";
 import { getTestimonial } from "@/utils/getTestimonials";
+import pic from "../../public/john-dusel-clapping-on-court-in-red_2000x3000.jpg";
 
 export default function Home({
   posts,
@@ -23,6 +24,12 @@ export default function Home({
       <Head>
         <title>{process.env.SITE_TITLE}</title>
         <meta name="description" content={process.env.SITE_DESCRIPTION} />
+        <meta property="og:title" content={process.env.SITE_TITLE} />
+        <meta
+          property="og:description"
+          content={process.env.SITE_DESCRIPTION}
+        />
+        <meta property="og:image" content={pic.src} />
       </Head>
       <Navbar showLogo={false} />
       <main>
@@ -41,7 +48,6 @@ export const getStaticProps: GetStaticProps = async () => {
   await generateRssFeed();
   const posts = await getLatestPosts();
   const testimonial = await getTestimonial("chelsea-lane");
-  console.log(`Testimonial: ${testimonial.name}`);
   return {
     props: { posts, testimonial },
   };
