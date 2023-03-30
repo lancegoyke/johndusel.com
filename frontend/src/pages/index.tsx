@@ -3,7 +3,7 @@ import { GetStaticProps } from "next";
 import Navbar from "../components/Navbar";
 import Hero from "../components/Hero";
 import LatestPosts from "../components/LatestPosts";
-import Testimonial from "../components/Testimonial";
+import Testimonials from "../components/Testimonials";
 import Footer from "../components/Footer";
 import { getLatestPosts } from "../utils/getPosts";
 import { PostInterface } from "../interfaces/PostInterface";
@@ -14,10 +14,10 @@ import pic from "../../public/john-dusel-clapping-on-court-in-red_2000x3000.jpg"
 
 export default function Home({
   posts,
-  testimonial,
+  testimonials,
 }: {
   posts: PostInterface[];
-  testimonial: TestimonialInterface;
+  testimonials: TestimonialInterface[];
 }) {
   return (
     <>
@@ -34,7 +34,7 @@ export default function Home({
       <Navbar showLogo={false} />
       <main>
         <Hero />
-        {testimonial.name && <Testimonial testimonial={testimonial} />}
+        {testimonials[0].name && <Testimonials testimonials={testimonials} />}
         <div className="center max-inline-size:large">
           <LatestPosts posts={posts} />
         </div>
@@ -47,8 +47,10 @@ export default function Home({
 export const getStaticProps: GetStaticProps = async () => {
   await generateRssFeed();
   const posts = await getLatestPosts();
-  const testimonial = await getTestimonial("chelsea-lane");
+  const testimonial1 = await getTestimonial("chelsea-lane");
+  const testimonial2 = await getTestimonial("dr-kyle-hammond");
+  const testimonial3 = await getTestimonial("nick-van-exel");
   return {
-    props: { posts, testimonial },
+    props: { posts, testimonials: [testimonial1, testimonial2, testimonial3] },
   };
 };
