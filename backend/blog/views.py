@@ -55,7 +55,7 @@ class CategoryDetailAPIView(generics.RetrieveAPIView):
 
 
 class TestimonialListAPIView(generics.ListAPIView):
-    queryset = Testimonial.objects.order_by("-created_at")
+    queryset = Testimonial.objects.order_by("-created_at")[:3]
     serializer_class = TestimonialSerializer
 
 
