@@ -8,7 +8,7 @@ export default function Testimonial({
   return (
     <section className={`testimonials`}>
       {testimonials.map((testimonial) => (
-        <article className="testimonial">
+        <article className="testimonial" key={testimonial.slug}>
           <div
             className="stack testimonial-body"
             dangerouslySetInnerHTML={{ __html: testimonial.body }}
