@@ -10,6 +10,7 @@ env = environ.Env(
         str,
         "django-insecure-x#j-7*wtpxc^r$r-2$j3)&pf1_(3w=j75uf0-rk_@wq2545^1%",
     ),
+    ALLOWED_HOSTS=(str, "127.0.0.1,localhost"),
     DOMAIN=(str, "http://127.0.0.1:8000"),
     STATIC_ROOT=(str, BASE_DIR / "staticfiles"),
     MEDIA_ROOT=(str, BASE_DIR / "media"),
