@@ -6,7 +6,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 env = environ.Env(
     DEBUG=(bool, False),
-    SECRET_KEY=(str, "django-insecure-x#j-7*wtpxc^r$r-2$j3)&pf1_(3w=j75uf0-rk_@wq2545^1%"),
+    SECRET_KEY=(
+        str,
+        "django-insecure-x#j-7*wtpxc^r$r-2$j3)&pf1_(3w=j75uf0-rk_@wq2545^1%",
+    ),
     DOMAIN=(str, "http://127.0.0.1:8000"),
     STATIC_ROOT=(str, BASE_DIR / "staticfiles"),
     MEDIA_ROOT=(str, BASE_DIR / "media"),
@@ -36,7 +39,13 @@ INSTALLED_APPS = [
     "uploads.apps.UploadsConfig",
 ]
 INSTALLED_APPS += ["debug_toolbar"] if DEBUG else []
-INTERNAL_IPS = ["127.0.0.1",] if DEBUG else []  # Django debug toolbar
+INTERNAL_IPS = (
+    [
+        "127.0.0.1",
+    ]
+    if DEBUG
+    else []
+)  # Django debug toolbar
 TEST_RUNNER = "cms.test_runner.TestRunner"
 
 MIDDLEWARE = [
@@ -72,6 +81,7 @@ TEMPLATES = [
 WSGI_APPLICATION = "cms.wsgi.application"
 
 import dj_database_url
+
 DATABASES = {
     # this automatically checks for the DATABASE_URL environment variable
     "default": dj_database_url.config(
@@ -125,7 +135,7 @@ if ENVIRONMENT == "production":
     CSRF_COOKIE_SECURE = True
     SESSION_COOKIE_SECURE = True
 
-    DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+    DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
     AWS_S3_ACCESS_KEY_ID = env("AWS_S3_ACCESS_KEY_ID")
     AWS_S3_SECRET_ACCESS_KEY = env("AWS_S3_SECRET_ACCESS_KEY")
     AWS_STORAGE_BUCKET_NAME = "johndusel.com"
@@ -133,7 +143,9 @@ if ENVIRONMENT == "production":
     AWS_QUERYSTRING_AUTH = False
 
     if AWS_S3_ACCESS_KEY_ID and AWS_S3_SECRET_ACCESS_KEY and AWS_STORAGE_BUCKET_NAME:
-        AWS_LOCATION = "development" if DOMAIN == "http://127.0.0.1:8000" else "production"
+        AWS_LOCATION = (
+            "development" if DOMAIN == "http://127.0.0.1:8000" else "production"
+        )
 
     import sentry_sdk
     from sentry_sdk.integrations.django import DjangoIntegration
