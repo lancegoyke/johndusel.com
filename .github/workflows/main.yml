@@ -1,0 +1,61 @@
+name: Connect to EC2 instance
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  connect-to-ec2:
+    name: Connect to EC2 instance
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    env:
+      EC2_SECURITY_GROUP_ID: sg-0247107399b909b0e
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@main
+      with:
+        role-to-assume: arn:aws:iam::497780720908:role/johndusel.com-github-actions-ssh
+        aws-region: us-east-2
+
+    - name: Get runner IP address
+      id: ip
+      uses: haythem/public-ip@v1.3
+
+    - name: Whitelist runner IP address
+      run: |
+        aws ec2 authorize-security-group-ingress \
+          --group-id $EC2_SECURITY_GROUP_ID \
+          --protocol tcp \
+          --port 22 \
+          --cidr ${{ steps.ip.outputs.ipv4 }}/32
+
+    - name: Connect to EC2 instance
+      uses: appleboy/ssh-action@v1.0.0
+      with:
+        host: ${{ secrets.EC2_HOST }}
+        username: ${{ secrets.EC2_USERNAME }}
+        key: ${{ secrets.EC2_PRIVATE_KEY }}
+        port: ${{ secrets.EC2_PORT }}
+
+    - name: Run command on EC2 instance
+      uses: appleboy/ssh-action@v1.0.0
+      with:
+        script: |
+            echo "Hello, EC2 instance!"
+            whoami
+            ls -la
+
+    - name: Revoke runner IP address
+      run: |
+        aws ec2 revoke-security-group-ingress \
+          --group-id $EC2_SECURITY_GROUP_ID \
+          --protocol tcp \
+          --port 22 \
+          --cidr ${{ steps.ip.outputs.ipv4 }}/32
