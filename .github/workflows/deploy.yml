@@ -44,9 +44,7 @@ jobs:
           key: ${{ secrets.EC2_PRIVATE_KEY }}
           port: ${{ secrets.EC2_PORT }}
           script: |
-            echo "Hello, EC2 instance!"
-            whoami
-            ls -la
+            sudo apt-get update && sudo apt-get upgrade -y
 
       - name: Revoke runner IP address
         run: |
