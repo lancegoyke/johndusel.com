@@ -54,6 +54,7 @@ jobs:
           port: ${{ secrets.EC2_PORT }}
           script: |
             sudo apt-get update && sudo apt-get upgrade -y
+            echo "$WORK_DIR"
             cd $WORK_DIR
             git switch master
             git pull
