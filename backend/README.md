@@ -34,3 +34,9 @@ python manage.py runserver
 ```
 
 Login at http://127.0.0.1:8000/backside.
+
+# Making Updates
+
+GitHub Actions is configured to run a `deploy.yml` workflow.
+
+This will update `apt` packages and `git pull` the code to the server.
