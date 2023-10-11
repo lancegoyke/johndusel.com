@@ -55,6 +55,7 @@ jobs:
           script: |
             sudo apt-get update && sudo apt-get upgrade -y
             cd $WORK_DIR
+            echo "$WORK_DIR"
             git switch master
             git pull
 
