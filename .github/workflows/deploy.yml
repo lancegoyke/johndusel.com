@@ -54,7 +54,8 @@ jobs:
           port: ${{ secrets.EC2_PORT }}
           script: |
             sudo apt-get update && sudo apt-get upgrade -y
-            cd ${{ secrets.EC2_HOST }} && pwd && ls -la
+            cd ${{ secrets.EC2_HOST }}
+            eval `ssh-agent -s` && ssh-add ~/.ssh/extreme_pem_aws_20220814.pem && echo `ssh-add -l`
             git switch master
             git pull
 
