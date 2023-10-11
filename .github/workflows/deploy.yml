@@ -38,13 +38,18 @@ jobs:
             --port 22 \
             --cidr ${{ steps.ip.outputs.ipv4 }}/32
 
-      - name: Write SSH key to runner
-        run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.EC2_PRIVATE_KEY }}" > ~/.ssh/gh_actions_johndusel
-          ssh-keyscan -H $HOST >> ~/.ssh/known_hosts
-          chmod 600 ~/.ssh/gh_actions_johndusel
-          eval `ssh-agent -s` && ssh-add ~/.ssh/gh_actions_johndusel && echo `ssh-add -l`
+      - name: webfactory/ssh-agent
+        uses: webfactory/ssh-agent@v0.8.0
+        with:
+          ssh-private-key: ${{ secrets.GH_DEPLOY_PRIVATE_KEY }}
+
+      # - name: Write SSH key to runner
+      #   run: |
+      #     mkdir -p ~/.ssh
+      #     echo "${{ secrets.EC2_PRIVATE_KEY }}" > ~/.ssh/gh_actions_johndusel
+      #     ssh-keyscan -H $HOST >> ~/.ssh/known_hosts
+      #     chmod 600 ~/.ssh/gh_actions_johndusel
+      #     eval `ssh-agent -s` && ssh-add ~/.ssh/gh_actions_johndusel && echo `ssh-add -l`
 
       - name: Connect to EC2 instance
         uses: appleboy/ssh-action@v1.0.0
