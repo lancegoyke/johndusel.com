@@ -45,6 +45,8 @@ jobs:
           port: ${{ secrets.EC2_PORT }}
           script: |
             sudo apt-get update && sudo apt-get upgrade -y
+            cd /home/${{ secrets.EC2_USERNAME }}/${{ github.event.repository.name }}
+            git pull
 
       - name: Revoke runner IP address
         run: |
