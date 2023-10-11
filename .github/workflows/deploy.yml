@@ -14,7 +14,7 @@ jobs:
       contents: read
     env:
       EC2_SECURITY_GROUP_ID: sg-0247107399b909b0e
-      WORK_DIR: /home/${{ secrets.EC2_USERNAME }}/${{ github.event.repository.name }}
+      WORK_DIR: /home/${{ secrets.EC2_USERNAME }}/${{ secrets.EC2_HOST }}
       HOST: ${{ github.event.repository.name }}
     steps:
       - name: Checkout code
@@ -54,7 +54,7 @@ jobs:
           port: ${{ secrets.EC2_PORT }}
           script: |
             sudo apt-get update && sudo apt-get upgrade -y
-            cd $WORK_DIR && pwd && ls -la
+            cd ${{ secrets.EC2_HOST }} && pwd && ls -la
             # git switch master
             # git pull
 
