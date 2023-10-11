@@ -14,6 +14,8 @@ jobs:
       contents: read
     env:
       EC2_SECURITY_GROUP_ID: sg-0247107399b909b0e
+      WORK_DIR: /home/${{ secrets.EC2_USERNAME }}/${{ github.event.repository.name }}
+      HOST: ${{ github.event.repository.name }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -36,6 +38,13 @@ jobs:
             --port 22 \
             --cidr ${{ steps.ip.outputs.ipv4 }}/32
 
+      - name: Write SSH key to runner
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.EC2_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          ssh-keyscan -H $HOST >> ~/.ssh/known_hosts
+          chmod 600 ~/.ssh/id_rsa
+
       - name: Connect to EC2 instance
         uses: appleboy/ssh-action@v1.0.0
         with:
@@ -45,7 +54,8 @@ jobs:
           port: ${{ secrets.EC2_PORT }}
           script: |
             sudo apt-get update && sudo apt-get upgrade -y
-            cd /home/${{ secrets.EC2_USERNAME }}/${{ github.event.repository.name }}
+            cd $WORK_DIR
+            git switch master
             git pull
 
       - name: Revoke runner IP address
@@ -55,3 +65,7 @@ jobs:
             --protocol tcp \
             --port 22 \
             --cidr ${{ steps.ip.outputs.ipv4 }}/32
+
+      - name: Remove SSH key from runner
+        run: |
+          rm -rf ~/.ssh
