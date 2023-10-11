@@ -55,8 +55,8 @@ jobs:
           script: |
             sudo apt-get update && sudo apt-get upgrade -y
             cd ${{ secrets.EC2_HOST }} && pwd && ls -la
-            # git switch master
-            # git pull
+            git switch master
+            git pull
 
       - name: Revoke runner IP address
         run: |
