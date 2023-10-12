@@ -16,7 +16,6 @@ jobs:
     env:
       EC2_SECURITY_GROUP_ID: sg-0247107399b909b0e
       WORK_DIR: /home/${{ secrets.EC2_USERNAME }}/${{ secrets.EC2_HOST }}
-      HOST: ${{ github.event.repository.name }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -62,7 +61,7 @@ jobs:
             cd ${{ secrets.EC2_HOST }}
             echo '$SSH_AUTH_SOCK'
             mkdir -p ~/.ssh
-            ssh-keyscan -H $HOST >> ~/.ssh/known_hosts
+            ssh-keyscan -H ${{ secrets.EC2_HOST }} > ~/.ssh/known_hosts
             git switch master
             git pull
 
