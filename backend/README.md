@@ -40,3 +40,19 @@ Login at http://127.0.0.1:8000/backside.
 GitHub Actions is configured to run a `deploy.yml` workflow.
 
 This will update `apt` packages and `git pull` the code to the server.
+
+# Database Backups
+
+The `johndusel.com` user is running cronjobs for backing up the database.
+
+To view them:
+
+```shell
+sudo crontab -u johndusel.com -l
+```
+
+One command uses the sqlite3 `.backup` command to backup the production database to the `/var/opt/johndusel.com/db-backups` directory.
+
+A second command syncs this folder with the `johndusel.com/db-backups/` S3 bucket.
+
+There is currently nothing which deletes these backups.
