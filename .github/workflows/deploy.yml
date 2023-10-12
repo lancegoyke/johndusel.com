@@ -45,7 +45,6 @@ jobs:
 
       - name: Write SSH key to runner
         run: |
-          echo '$SSH_AUTH_SOCK'
           mkdir -p ~/.ssh
           ssh-keyscan -H ${{ secrets.EC2_HOST }} > ~/.ssh/known_hosts
 
