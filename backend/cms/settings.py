@@ -18,7 +18,7 @@ env = environ.Env(
 
 # run server using production environment variables with this command:
 # ENV_PATH=.production.env python manage.py runserver
-environ.Env.read_env(env.str("ENV_PATH", BASE_DIR / ".development.env"))
+env.read_env(env.str("ENV_PATH", BASE_DIR / ".development.env"))
 
 SECRET_KEY = env("SECRET_KEY")
 DEBUG = env("DEBUG")
