@@ -18,6 +18,8 @@ jobs:
       REPO_DIR: /home/${{ secrets.EC2_USERNAME }}/${{ secrets.EC2_HOST }}
       OPT_DIR: /opt/${{ secrets.EC2_HOST }}
       VENV_DIR: /opt/${{ secrets.EC2_HOST }}/backend/.venv
+      CONF_DIR: /etc/opt/${{ secrets.EC2_HOST }}
+      DJANGO_BASE_DIR: /opt/${{ secrets.EC2_HOST }}/backend
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -59,6 +61,14 @@ jobs:
       - name: Copy to /opt and change permissions
         run: |
           ssh -A -i ~/.ssh/gh_deploy_johndusel ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} -p ${{ secrets.EC2_PORT }} "sudo cp --recursive --update --preserve $REPO_DIR /opt && sudo chown -R root:root $OPT_DIR && sudo chmod 0755 $OPT_DIR"
+
+      - name: Install Python dependencies
+        run: |
+          ssh -A -i ~/.ssh/gh_deploy_johndusel ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} -p ${{ secrets.EC2_PORT }} "ENV_PATH=$CONF_DIR/.env PYTHONPATH=$CONF_DIR:$DJANGO_BASE_DIR sudo $VENV_DIR/bin/pip install -r $DJANGO_BASE_DIR/requirements.txt"
+
+      - name: Restart gunicorn
+        run: |
+          ssh -A -i ~/.ssh/gh_deploy_johndusel ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} -p ${{ secrets.EC2_PORT }} "sudo systemctl restart gunicorn-${{ secrets.EC2_HOST }} || sudo systemctl start gunicorn-${{ secrets.EC2_HOST }}"
 
       - name: Revoke runner IP address
         run: |
