@@ -66,6 +66,10 @@ jobs:
         run: |
           ssh -A -i ~/.ssh/gh_deploy_johndusel ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} -p ${{ secrets.EC2_PORT }} "ENV_PATH=$CONF_DIR/.env PYTHONPATH=$CONF_DIR:$DJANGO_BASE_DIR sudo $VENV_DIR/bin/pip install -r $DJANGO_BASE_DIR/requirements.txt"
 
+      - name: Python manage.py migrate
+        run: |
+          ssh -A -i ~/.ssh/gh_deploy_johndusel ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} -p ${{ secrets.EC2_PORT }} "sudo ENV_PATH=$CONF_DIR/.env PYTHONPATH=$CONF_DIR:$DJANGO_BASE_DIR DJANGO_SETTINGS_MODULE=settings $VENV_DIR/bin/python $DJANGO_BASE_DIR/manage.py migrate --noinput"
+
       - name: Restart gunicorn
         run: |
           ssh -A -i ~/.ssh/gh_deploy_johndusel ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} -p ${{ secrets.EC2_PORT }} "sudo systemctl restart gunicorn-${{ secrets.EC2_HOST }} || sudo systemctl start gunicorn-${{ secrets.EC2_HOST }}"
