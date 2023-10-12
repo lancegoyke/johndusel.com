@@ -48,11 +48,6 @@ jobs:
           echo '$SSH_AUTH_SOCK'
           mkdir -p ~/.ssh
           ssh-keyscan -H ${{ secrets.EC2_HOST }} > ~/.ssh/known_hosts
-          # THESE COMMANDS SHOULD NOT BE NECCESSARY
-          # ---------------------------------------
-          # echo "${{ secrets.EC2_PRIVATE_KEY }}" > ~/.ssh/gh_actions_johndusel
-          # chmod 600 ~/.ssh/gh_actions_johndusel
-          # eval `ssh-agent -s` && ssh-add ~/.ssh/gh_actions_johndusel && echo `ssh-add -l`
 
       - name: Connect to EC2 instance
         uses: appleboy/ssh-action@v1.0.0
