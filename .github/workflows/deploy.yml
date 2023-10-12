@@ -46,9 +46,7 @@ jobs:
 
       # - name: Write SSH key to runner
       #   run: |
-      #     mkdir -p ~/.ssh
       #     echo "${{ secrets.EC2_PRIVATE_KEY }}" > ~/.ssh/gh_actions_johndusel
-      #     ssh-keyscan -H $HOST >> ~/.ssh/known_hosts
       #     chmod 600 ~/.ssh/gh_actions_johndusel
       #     eval `ssh-agent -s` && ssh-add ~/.ssh/gh_actions_johndusel && echo `ssh-add -l`
 
@@ -62,6 +60,9 @@ jobs:
           script: |
             sudo apt-get update && sudo apt-get upgrade -y
             cd ${{ secrets.EC2_HOST }}
+            echo '$SSH_AUTH_SOCK'
+            mkdir -p ~/.ssh
+            ssh-keyscan -H $HOST >> ~/.ssh/known_hosts
             git switch master
             git pull
 
