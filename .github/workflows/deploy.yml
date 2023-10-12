@@ -3,7 +3,8 @@ name: Connect to EC2 instance
 on:
   push:
     branches:
-      - master
+      - "master"
+      - "cd/**"
 
 jobs:
   connect-to-ec2:
