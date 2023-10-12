@@ -46,26 +46,13 @@ jobs:
       - name: Write SSH key to runner
         run: |
           mkdir -p ~/.ssh
-          ssh-keyscan -H ${{ secrets.EC2_HOST }} > ~/.ssh/known_hosts
-
-      - name: SSH into EC2 instance
-        run: |
           echo '${{ secrets.EC2_PRIVATE_KEY }}' > ~/.ssh/gh_deploy_johndusel
           chmod 600 ~/.ssh/gh_deploy_johndusel
-          ssh -o StrictHostKeyChecking=no -A -i ~/.ssh/gh_deploy_johndusel ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} -p ${{ secrets.EC2_PORT }} "sudo apt-get update && sudo apt-get upgrade -y && cd $WORK_DIR && git switch master && git pull"
+          ssh-keyscan -H ${{ secrets.EC2_HOST }} > ~/.ssh/known_hosts
 
-      # - name: Connect to EC2 instance
-      #   uses: appleboy/ssh-action@v1.0.0
-      #   with:
-      #     host: ${{ secrets.EC2_HOST }}
-      #     username: ${{ secrets.EC2_USERNAME }}
-      #     key: ${{ secrets.EC2_PRIVATE_KEY }}
-      #     port: ${{ secrets.EC2_PORT }}
-      #     script: |
-      #       sudo apt-get update && sudo apt-get upgrade -y
-      #       cd ${{ secrets.EC2_HOST }}
-      #       git switch master
-      #       git pull
+      - name: Pull code from GitHub
+        run: |
+          ssh -A -i ~/.ssh/gh_deploy_johndusel ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} -p ${{ secrets.EC2_PORT }} "sudo apt-get update && sudo apt-get upgrade -y && cd $WORK_DIR && git switch master && git pull"
 
       - name: Revoke runner IP address
         run: |
