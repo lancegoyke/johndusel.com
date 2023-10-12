@@ -15,7 +15,9 @@ jobs:
       contents: read
     env:
       EC2_SECURITY_GROUP_ID: sg-0247107399b909b0e
-      WORK_DIR: /home/${{ secrets.EC2_USERNAME }}/${{ secrets.EC2_HOST }}
+      GIT_DIR: /home/${{ secrets.EC2_USERNAME }}/${{ secrets.EC2_HOST }}
+      OPT_DIR: /opt/${{ secrets.EC2_HOST }}
+      VENV_DIR: /opt/${{ secrets.EC2_HOST }}/backend/.venv
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -52,7 +54,11 @@ jobs:
 
       - name: Pull code from GitHub
         run: |
-          ssh -A -i ~/.ssh/gh_deploy_johndusel ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} -p ${{ secrets.EC2_PORT }} "sudo apt-get update && sudo apt-get upgrade -y && cd $WORK_DIR && git switch master && git pull"
+          ssh -A -i ~/.ssh/gh_deploy_johndusel ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} -p ${{ secrets.EC2_PORT }} "sudo apt-get update && sudo apt-get upgrade -y && cd $GIT_DIR && git switch master && git pull"
+
+      - name: Copy to /opt and change permissions
+        run: |
+          ssh -A -i ~/.ssh/gh_deploy_johndusel ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} -p ${{ secrets.EC2_PORT }} "sudo cp --recursive --update --preserve $GIT_DIR /opt && sudo chown -R root:root $OPT_DIR && sudo chmod 0755 $OPT_DIR"
 
       - name: Revoke runner IP address
         run: |
