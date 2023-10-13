@@ -89,9 +89,9 @@ jobs:
         run: |
           ssh -A -i ~/.ssh/gh_deploy_johndusel ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} "sudo cp --recursive --update --preserve $NEXTJS_BASE_DIR/.next $NEXTJS_BUILD_DIR && sudo chown -R ${{ secrets.EC2_HOST }}:${{ secrets.EC2_HOST }} $NEXTJS_BUILD_DIR"
 
-      # - name: Restart Next.js server (install dependencies, start Next.js server)
-      # run: |
-      # ssh -A -i ~/.ssh/gh_deploy_johndusel ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} -p ${{ secrets.EC2_PORT }} "sudo systemctl restart nextjs-${{ secrets.EC2_HOST }} || sudo systemctl start nextjs-${{ secrets.EC2_HOST }}"
+      - name: Restart Next.js server (install dependencies, start Next.js server)
+        run: |
+          ssh -A -i ~/.ssh/gh_deploy_johndusel ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} -p ${{ secrets.EC2_PORT }} "sudo systemctl restart nextjs-${{ secrets.EC2_HOST }} || sudo systemctl start nextjs-${{ secrets.EC2_HOST }}"
 
       - name: Restart gunicorn
         run: |
