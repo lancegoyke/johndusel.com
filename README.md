@@ -44,3 +44,7 @@ The name of the file tells Next.js how to form the blog post URLs, i.e., `[slug]
 
 1. Build the new code with `npm run build`
 2. Restart the Next.js server with `npm run start`
+
+## Local Development
+
+See [backend](https://github.com/lancegoyke/johndusel.com/tree/master/backend) and [frontend](https://github.com/lancegoyke/johndusel.com/tree/master/frontend) documentation.
