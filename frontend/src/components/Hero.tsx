@@ -115,16 +115,6 @@ export default function Hero() {
               </div>
             </div>
           </div>
-
-          <div className="alert warning">
-            <p>
-              <em>Upcoming:</em> I&apos;ll be speaking at the{" "}
-              <Link href="https://elitebasketballrehabconference.com/">
-                Elite Basketball Rehab Conference
-              </Link>{" "}
-              in July 2023
-            </p>
-          </div>
         </div>
       </div>
     </div>
