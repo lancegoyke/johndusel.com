@@ -21,6 +21,7 @@ jobs:
       CONF_DIR: /etc/opt/${{ secrets.EC2_HOST }}
       DJANGO_BASE_DIR: /opt/${{ secrets.EC2_HOST }}/backend
       STATICFILES_DIR: /var/opt/${{ secrets.EC2_HOST }}/staticfiles
+      NEXTJS_BASE_DIR: /opt/${{ secrets.EC2_HOST }}/frontend
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -78,6 +79,10 @@ jobs:
       - name: Chown static files
         run: |
           ssh -A -i ~/.ssh/gh_deploy_johndusel ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} -p ${{ secrets.EC2_PORT }} "sudo chown -R ${{ secrets.EC2_HOST }}:${{ secrets.EC2_HOST }} $STATICFILES_DIR"
+
+      - name: Restart Next.js server (install dependencies, build, start)
+        run: |
+          ssh -A -i ~/.ssh/gh_deploy_johndusel ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} -p ${{ secrets.EC2_PORT }} "sudo systemctl restart nextjs-${{ secrets.EC2_HOST }} || sudo systemctl start nextjs-${{ secrets.EC2_HOST }}"
 
       - name: Restart gunicorn
         run: |
