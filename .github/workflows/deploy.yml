@@ -22,6 +22,7 @@ jobs:
       DJANGO_BASE_DIR: /opt/${{ secrets.EC2_HOST }}/backend
       STATICFILES_DIR: /var/opt/${{ secrets.EC2_HOST }}/staticfiles
       NEXTJS_BASE_DIR: /opt/${{ secrets.EC2_HOST }}/frontend
+      NEXTJS_BUILD_DIR: /var/opt/${{ secrets.EC2_HOST }}/frontend
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -80,9 +81,17 @@ jobs:
         run: |
           ssh -A -i ~/.ssh/gh_deploy_johndusel ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} -p ${{ secrets.EC2_PORT }} "sudo chown -R ${{ secrets.EC2_HOST }}:${{ secrets.EC2_HOST }} $STATICFILES_DIR"
 
-      - name: Restart Next.js server (install dependencies, start Next.js server)
+      - name: Install Node.js dependencies and build Next.js app in /opt as root
         run: |
-          ssh -A -i ~/.ssh/gh_deploy_johndusel ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} -p ${{ secrets.EC2_PORT }} "sudo systemctl restart nextjs-${{ secrets.EC2_HOST }} || sudo systemctl start nextjs-${{ secrets.EC2_HOST }}"
+          ssh -A -i ~/.ssh/gh_deploy_johndusel ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} -p ${{ secrets.EC2_PORT }} "cd $NEXTJS_BASE_DIR && sudo npm install && sudo $NEXTJS_BASE_DIR/node_modules/next/dist/bin/next build --no-lint"
+
+      - name: Move Next.js build into /var and change permissions
+        run: |
+          ssh -A -i ~/.ssh/gh_deploy_johndusel ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} "sudo cp --recursive --update --preserve $NEXTJS_BASE_DIR/.next $NEXTJS_BUILD_DIR && sudo chown -R ${{ secrets.EC2_HOST }}:${{ secrets.EC2_HOST }} $NEXTJS_BUILD_DIR"
+
+      # - name: Restart Next.js server (install dependencies, start Next.js server)
+      # run: |
+      # ssh -A -i ~/.ssh/gh_deploy_johndusel ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} -p ${{ secrets.EC2_PORT }} "sudo systemctl restart nextjs-${{ secrets.EC2_HOST }} || sudo systemctl start nextjs-${{ secrets.EC2_HOST }}"
 
       - name: Restart gunicorn
         run: |
