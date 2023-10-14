@@ -40,7 +40,7 @@ django-environ==0.9.0
     # via -r requirements.in
 django-storages[boto3]==1.14.2
     # via -r requirements.in
-django-stubs==4.2.3
+django-stubs==4.2.4
     # via -r requirements.in
 django-stubs-ext==4.2.2
     # via
@@ -56,7 +56,7 @@ jmespath==1.0.1
     # via
     #   boto3
     #   botocore
-mypy==1.4.1
+mypy==1.6.0
     # via
     #   -r requirements.in
     #   django-stubs
@@ -99,7 +99,6 @@ types-pyyaml==6.0.12.12
     # via django-stubs
 typing-extensions==4.7.1
     # via
-    #   -r requirements.in
     #   django-stubs
     #   django-stubs-ext
     #   mypy
