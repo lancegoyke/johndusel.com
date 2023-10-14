@@ -15,6 +15,7 @@ jobs:
       contents: read
     env:
       EC2_SECURITY_GROUP_ID: sg-0247107399b909b0e
+      SSH_CMD: ssh -A -i ~/.ssh/gh_deploy_johndusel ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} -p ${{ secrets.EC2_PORT }}
       REPO_DIR: /home/${{ secrets.EC2_USERNAME }}/${{ secrets.EC2_HOST }}
       OPT_DIR: /opt/${{ secrets.EC2_HOST }}
       VENV_DIR: /opt/${{ secrets.EC2_HOST }}/backend/.venv
@@ -59,43 +60,43 @@ jobs:
 
       - name: Pull code from GitHub
         run: |
-          ssh -A -i ~/.ssh/gh_deploy_johndusel ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} -p ${{ secrets.EC2_PORT }} "sudo apt-get update && sudo apt-get upgrade -y && cd $REPO_DIR && git switch master && git pull"
+          $SSH_CMD "sudo apt-get update && sudo apt-get upgrade -y && cd $REPO_DIR && git switch master && git pull"
 
       - name: Copy to /opt and change permissions
         run: |
-          ssh -A -i ~/.ssh/gh_deploy_johndusel ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} -p ${{ secrets.EC2_PORT }} "sudo cp --recursive --update --preserve $REPO_DIR /opt && sudo chown -R root:root $OPT_DIR && sudo chmod 0755 $OPT_DIR"
+          $SSH_CMD "sudo cp --recursive --update --preserve $REPO_DIR /opt && sudo chown -R root:root $OPT_DIR && sudo chmod 0755 $OPT_DIR"
 
       - name: Install Python dependencies
         run: |
-          ssh -A -i ~/.ssh/gh_deploy_johndusel ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} -p ${{ secrets.EC2_PORT }} "ENV_PATH=$CONF_DIR/.env PYTHONPATH=$CONF_DIR:$DJANGO_BASE_DIR sudo $VENV_DIR/bin/pip install -r $DJANGO_BASE_DIR/requirements.txt"
+          $SSH_CMD "ENV_PATH=$CONF_DIR/.env PYTHONPATH=$CONF_DIR:$DJANGO_BASE_DIR sudo $VENV_DIR/bin/pip install -r $DJANGO_BASE_DIR/requirements.txt"
 
       - name: Python manage.py migrate
         run: |
-          ssh -A -i ~/.ssh/gh_deploy_johndusel ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} -p ${{ secrets.EC2_PORT }} "sudo ENV_PATH=$CONF_DIR/.env PYTHONPATH=$CONF_DIR:$DJANGO_BASE_DIR DJANGO_SETTINGS_MODULE=settings $VENV_DIR/bin/python $DJANGO_BASE_DIR/manage.py migrate --noinput"
+          $SSH_CMD "sudo ENV_PATH=$CONF_DIR/.env PYTHONPATH=$CONF_DIR:$DJANGO_BASE_DIR DJANGO_SETTINGS_MODULE=settings $VENV_DIR/bin/python $DJANGO_BASE_DIR/manage.py migrate --noinput"
 
       - name: Python manage.py collectstatic
         run: |
-          ssh -A -i ~/.ssh/gh_deploy_johndusel ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} -p ${{ secrets.EC2_PORT }} "sudo ENV_PATH=$CONF_DIR/.env PYTHONPATH=$CONF_DIR:$DJANGO_BASE_DIR DJANGO_SETTINGS_MODULE=settings $VENV_DIR/bin/python $DJANGO_BASE_DIR/manage.py collectstatic --noinput"
+          $SSH_CMD "sudo ENV_PATH=$CONF_DIR/.env PYTHONPATH=$CONF_DIR:$DJANGO_BASE_DIR DJANGO_SETTINGS_MODULE=settings $VENV_DIR/bin/python $DJANGO_BASE_DIR/manage.py collectstatic --noinput"
 
       - name: Chown static files
         run: |
-          ssh -A -i ~/.ssh/gh_deploy_johndusel ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} -p ${{ secrets.EC2_PORT }} "sudo chown -R ${{ secrets.EC2_HOST }}:${{ secrets.EC2_HOST }} $STATICFILES_DIR"
+          $SSH_CMD "sudo chown -R ${{ secrets.EC2_HOST }}:${{ secrets.EC2_HOST }} $STATICFILES_DIR"
 
       - name: Install Node.js dependencies and build Next.js app in /opt as root
         run: |
-          ssh -A -i ~/.ssh/gh_deploy_johndusel ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} -p ${{ secrets.EC2_PORT }} "cd $NEXTJS_BASE_DIR && sudo npm install && sudo $NEXTJS_BASE_DIR/node_modules/next/dist/bin/next build --no-lint"
+          $SSH_CMD "cd $NEXTJS_BASE_DIR && sudo npm install && sudo $NEXTJS_BASE_DIR/node_modules/next/dist/bin/next build --no-lint"
 
       - name: Move Next.js build into /var and change permissions
         run: |
-          ssh -A -i ~/.ssh/gh_deploy_johndusel ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} "sudo cp --recursive --update --preserve $NEXTJS_BASE_DIR/.next $NEXTJS_BUILD_DIR && sudo chown -R ${{ secrets.EC2_HOST }}:${{ secrets.EC2_HOST }} $NEXTJS_BUILD_DIR"
+          $SSH_CMD "sudo cp --recursive --update --preserve $NEXTJS_BASE_DIR/.next $NEXTJS_BUILD_DIR && sudo chown -R ${{ secrets.EC2_HOST }}:${{ secrets.EC2_HOST }} $NEXTJS_BUILD_DIR"
 
       - name: Restart Next.js server (install dependencies, start Next.js server)
         run: |
-          ssh -A -i ~/.ssh/gh_deploy_johndusel ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} -p ${{ secrets.EC2_PORT }} "sudo systemctl restart nextjs-${{ secrets.EC2_HOST }} || sudo systemctl start nextjs-${{ secrets.EC2_HOST }}"
+          $SSH_CMD "sudo systemctl restart nextjs-${{ secrets.EC2_HOST }} || sudo systemctl start nextjs-${{ secrets.EC2_HOST }}"
 
       - name: Restart gunicorn
         run: |
-          ssh -A -i ~/.ssh/gh_deploy_johndusel ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} -p ${{ secrets.EC2_PORT }} "sudo systemctl restart gunicorn-${{ secrets.EC2_HOST }} || sudo systemctl start gunicorn-${{ secrets.EC2_HOST }}"
+          $SSH_CMD "sudo systemctl restart gunicorn-${{ secrets.EC2_HOST }} || sudo systemctl start gunicorn-${{ secrets.EC2_HOST }}"
 
       - name: Revoke runner IP address
         run: |
