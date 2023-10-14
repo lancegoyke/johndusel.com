@@ -20,7 +20,7 @@ certifi==2023.7.22
     # via sentry-sdk
 click==8.1.7
     # via black
-dj-database-url==1.2.0
+dj-database-url==2.1.0
     # via -r requirements.in
 dj-inmemorystorage==2.1.0
     # via -r requirements.in
@@ -99,6 +99,7 @@ types-pyyaml==6.0.12.12
     # via django-stubs
 typing-extensions==4.8.0
     # via
+    #   dj-database-url
     #   django-stubs
     #   django-stubs-ext
     #   mypy
