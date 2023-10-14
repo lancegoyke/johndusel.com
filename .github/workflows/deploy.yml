@@ -1,4 +1,4 @@
-name: Connect to EC2 instance
+name: Deploy to EC2 instance
 
 on:
   push:
@@ -7,8 +7,7 @@ on:
       - "cd/**"
 
 jobs:
-  connect-to-ec2:
-    name: Connect to EC2 instance
+  deploy:
     runs-on: ubuntu-latest
     permissions:
       id-token: write
