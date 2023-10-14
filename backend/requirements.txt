@@ -38,7 +38,7 @@ django-debug-toolbar==3.8.1
     # via -r requirements.in
 django-environ==0.9.0
     # via -r requirements.in
-django-storages[boto3]==1.13.2
+django-storages[boto3]==1.14.2
     # via -r requirements.in
 django-stubs==4.2.3
     # via -r requirements.in
