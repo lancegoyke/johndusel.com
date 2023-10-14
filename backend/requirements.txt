@@ -106,5 +106,5 @@ urllib3==2.0.6
     # via
     #   botocore
     #   sentry-sdk
-whitenoise[brotli]==6.4.0
+whitenoise[brotli]==6.6.0
     # via -r requirements.in
