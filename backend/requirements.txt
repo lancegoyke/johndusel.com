@@ -50,7 +50,7 @@ django-tinymce==3.6.1
     # via -r requirements.in
 djangorestframework==3.14.0
     # via -r requirements.in
-gunicorn==20.1.0
+gunicorn==21.2.0
     # via -r requirements.in
 jmespath==1.0.1
     # via
@@ -66,7 +66,9 @@ mypy-extensions==1.0.0
     #   black
     #   mypy
 packaging==23.2
-    # via black
+    # via
+    #   black
+    #   gunicorn
 pathspec==0.11.2
     # via black
 pillow==10.0.1
@@ -107,6 +109,3 @@ urllib3==2.0.6
     #   sentry-sdk
 whitenoise[brotli]==6.4.0
     # via -r requirements.in
-
-# The following packages are considered to be unsafe in a requirements file:
-# setuptools
