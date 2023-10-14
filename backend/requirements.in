@@ -6,7 +6,7 @@ mypy==1.4.1
 mypy-extensions==1.0.0
 typing_extensions==4.7.1
 django-tinymce==3.6.1
-pillow==9.4.0
+pillow==10.0.1
 black==23.1.0
 dj-inmemorystorage==2.1.0
 django-environ==0.9.0
