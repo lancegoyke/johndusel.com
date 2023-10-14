@@ -97,7 +97,7 @@ types-pytz==2023.3.1.1
     # via django-stubs
 types-pyyaml==6.0.12.12
     # via django-stubs
-typing-extensions==4.7.1
+typing-extensions==4.8.0
     # via
     #   django-stubs
     #   django-stubs-ext
