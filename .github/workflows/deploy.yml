@@ -81,6 +81,10 @@ jobs:
         run: |
           $SSH_CMD "sudo chown -R ${{ secrets.EC2_HOST }}:${{ secrets.EC2_HOST }} $STATICFILES_DIR"
 
+      - name: Restart gunicorn
+        run: |
+          $SSH_CMD "sudo systemctl restart gunicorn-${{ secrets.EC2_HOST }} || sudo systemctl start gunicorn-${{ secrets.EC2_HOST }}"
+
       - name: Install Node.js dependencies and build Next.js app in /opt as root
         run: |
           $SSH_CMD "cd $NEXTJS_BASE_DIR && sudo npm install && sudo $NEXTJS_BASE_DIR/node_modules/next/dist/bin/next build --no-lint"
@@ -92,10 +96,6 @@ jobs:
       - name: Restart Next.js server (install dependencies, start Next.js server)
         run: |
           $SSH_CMD "sudo systemctl restart nextjs-${{ secrets.EC2_HOST }} || sudo systemctl start nextjs-${{ secrets.EC2_HOST }}"
-
-      - name: Restart gunicorn
-        run: |
-          $SSH_CMD "sudo systemctl restart gunicorn-${{ secrets.EC2_HOST }} || sudo systemctl start gunicorn-${{ secrets.EC2_HOST }}"
 
       - name: Revoke runner IP address
         run: |
