@@ -19,6 +19,7 @@ jobs:
       OPT_DIR: /opt/${{ secrets.EC2_HOST }}
       VENV_DIR: /opt/${{ secrets.EC2_HOST }}/backend/.venv
       CONF_DIR: /etc/opt/${{ secrets.EC2_HOST }}
+      DATA_DIR: /var/opt/${{ secrets.EC2_HOST }}
       DJANGO_BASE_DIR: /opt/${{ secrets.EC2_HOST }}/backend
       STATICFILES_DIR: /var/opt/${{ secrets.EC2_HOST }}/staticfiles
       NEXTJS_BASE_DIR: /opt/${{ secrets.EC2_HOST }}/frontend
@@ -91,7 +92,7 @@ jobs:
 
       - name: Copy frontend into data directory and change owner
         run: |
-          $SSH_CMD "sudo cp -R $NEXTJS_BASE_DIR $NEXTJS_BUILD_DIR && sudo chown -R ${{ secrets.EC2_HOST }}:${{ secrets.EC2_HOST }} $NEXTJS_BUILD_DIR"
+          $SSH_CMD "sudo cp -R $NEXTJS_BASE_DIR $DATA_DIR && sudo chown -R ${{ secrets.EC2_HOST }}:${{ secrets.EC2_HOST }} $DATA_DIR"
 
       - name: Install Node.js dependencies and build Next.js site
         run: |
