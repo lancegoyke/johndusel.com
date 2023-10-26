@@ -66,7 +66,7 @@ export default function About() {
                 <h2>Lecturing</h2>
                 <ul>
                   <li>
-                    <em>Upcoming:</em> I&apos;ll be speaking at the{" "}
+                    I spoke at the{" "}
                     <Link href="https://elitebasketballrehabconference.com/">
                       Elite Basketball Rehab Conference
                     </Link>{" "}
