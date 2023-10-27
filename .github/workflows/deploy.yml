@@ -86,10 +86,6 @@ jobs:
         run: |
           $SSH_CMD "sudo systemctl restart gunicorn-${{ secrets.EC2_HOST }} || sudo systemctl start gunicorn-${{ secrets.EC2_HOST }}"
 
-      # - name: Install Node.js dependencies and build Next.js app in /opt as root
-      #   run: |
-      #     $SSH_CMD "cd $NEXTJS_BASE_DIR && sudo npm install && sudo $NEXTJS_BASE_DIR/node_modules/next/dist/bin/next build --no-lint"
-
       - name: Copy frontend into data directory and change owner
         run: |
           $SSH_CMD "sudo cp -R $NEXTJS_BASE_DIR $DATA_DIR && sudo chown -R ${{ secrets.EC2_HOST }}:${{ secrets.EC2_HOST }} $DATA_DIR"
