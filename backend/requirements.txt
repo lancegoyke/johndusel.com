@@ -20,6 +20,8 @@ certifi==2023.7.22
     # via sentry-sdk
 click==8.1.7
     # via black
+coverage==7.3.2
+    # via -r requirements.in
 dj-database-url==2.1.0
     # via -r requirements.in
 dj-inmemorystorage==2.1.0
@@ -39,7 +41,9 @@ django-debug-toolbar==4.2.0
 django-environ==0.9.0
     # via -r requirements.in
 django-storages[boto3]==1.14.2
-    # via -r requirements.in
+    # via
+    #   -r requirements.in
+    #   django-storages
 django-stubs==4.2.4
     # via -r requirements.in
 django-stubs-ext==4.2.2
@@ -108,4 +112,6 @@ urllib3==2.0.6
     #   botocore
     #   sentry-sdk
 whitenoise[brotli]==6.6.0
-    # via -r requirements.in
+    # via
+    #   -r requirements.in
+    #   whitenoise
