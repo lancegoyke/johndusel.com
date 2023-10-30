@@ -7,7 +7,7 @@ from django.urls import reverse
 from django.utils import timezone
 from django.utils.timezone import datetime
 
-from blog.models import Category, Post
+from blog.models import Category, Post, Testimonial
 from users.models import CustomUser as UserType
 
 
@@ -32,6 +32,14 @@ class PostTests(TestCase):
             body="Test body",
             author=cls.admin_user,
         )
+        cls.category = Category.objects.create(name="Testing", slug="testing")
+        cls.post_with_category = Post.objects.create(
+            title="Test Post with a Category",
+            slug="test-post-with-a-category",
+            body="This testpost contains info about testing.",
+            author=cls.admin_user,
+        )
+        cls.post_with_category.categories.add(cls.category)
 
     def test_create_post(self) -> None:
         self.assertEqual(self.post.title, "Test Post")
@@ -40,6 +48,15 @@ class PostTests(TestCase):
         self.assertEqual(self.post.author, self.admin_user)
         self.assertEqual(self.post.created_at, self.test_time_now)
         self.assertEqual(self.post.updated_at, self.test_time_now)
+
+    def test_post_get_categories(self) -> None:
+        self.assertEqual(self.post_with_category.get_categories, "Testing")
+
+    def test_post_get_categories_with_multiple(self) -> None:
+        new_category = Category.objects.create(name="Design", slug="design")
+        self.post_with_category.categories.add(new_category)
+        self.assertIn("Testing", self.post_with_category.get_categories)
+        self.assertIn("Design", self.post_with_category.get_categories)
 
     def test_duplicate_slug(self) -> None:
         with self.assertRaises(IntegrityError):
@@ -109,3 +126,22 @@ class PostListAPIViewTests(TestCase):
         )
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, self.category.name)
+
+
+class TestimonialTests(TestCase):
+    testimonial: Testimonial
+    test_time_now: datetime = timezone.now()
+
+    @classmethod
+    @mock.patch("django.utils.timezone.now", mock.Mock(return_value=test_time_now))
+    def setUpTestData(cls) -> None:
+        cls.testimonial = Testimonial.objects.create(
+            name="Jane Boss",
+            slug="jane-boss",
+            body="Simply the best. Better than all the rest. I cannot recommend highly enough!",
+            title="The best employee I have ever had",
+            company="ABC Factory LLC",
+        )
+
+    def test_testimonial_str(self) -> None:
+        self.assertIn("Jane Boss", str(self.testimonial))

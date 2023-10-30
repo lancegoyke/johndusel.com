@@ -21,7 +21,7 @@ class Post(models.Model):
 
     @property
     def get_categories(self) -> str:
-        return ", ".join([c.name for c in self.categories.all()])
+        return ", ".join([str(c) for c in self.categories.all()])
 
 
 class Category(models.Model):
