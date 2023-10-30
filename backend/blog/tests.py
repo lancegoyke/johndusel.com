@@ -7,7 +7,7 @@ from django.urls import reverse
 from django.utils import timezone
 from django.utils.timezone import datetime
 
-from blog.models import Category, Post
+from blog.models import Category, Post, Testimonial
 from users.models import CustomUser as UserType
 
 
@@ -126,3 +126,22 @@ class PostListAPIViewTests(TestCase):
         )
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, self.category.name)
+
+
+class TestimonialTests(TestCase):
+    testimonial: Testimonial
+    test_time_now: datetime = timezone.now()
+
+    @classmethod
+    @mock.patch("django.utils.timezone.now", mock.Mock(return_value=test_time_now))
+    def setUpTestData(cls) -> None:
+        cls.testimonial = Testimonial.objects.create(
+            name="Jane Boss",
+            slug="jane-boss",
+            body="Simply the best. Better than all the rest. I cannot recommend highly enough!",
+            title="The best employee I have ever had",
+            company="ABC Factory LLC",
+        )
+
+    def test_testimonial_str(self) -> None:
+        self.assertIn("Jane Boss", str(self.testimonial))
