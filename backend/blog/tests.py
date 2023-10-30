@@ -3,10 +3,11 @@ from unittest import mock
 from django.contrib.auth import get_user_model
 from django.db import IntegrityError
 from django.test import TestCase
+from django.urls import reverse
 from django.utils import timezone
 from django.utils.timezone import datetime
 
-from blog.models import Post
+from blog.models import Category, Post
 from users.models import CustomUser as UserType
 
 
@@ -68,12 +69,20 @@ class PostListAPIViewTests(TestCase):
             password="testpass123",
             name="Admin User",
         )
+        cls.category = Category.objects.create(name="Testing", slug="testing")
         cls.post = Post.objects.create(
             title="Test Post",
             slug="test-post",
             body="Test body",
             author=cls.admin_user,
         )
+        cls.post_with_category = Post.objects.create(
+            title="Test Post with a Category",
+            slug="test-post-with-a-category",
+            body="This testpost contains info about testing.",
+            author=cls.admin_user,
+        )
+        cls.post_with_category.categories.add(cls.category)
 
     def test_get(self) -> None:
         response = self.client.get("/api/posts/")
@@ -93,3 +102,10 @@ class PostListAPIViewTests(TestCase):
         self.assertEqual(
             response.data[0]["updated_at"], f"{self.test_time_now.isoformat()[:-6]}Z"
         )
+
+    def test_post_list_by_category_API_get(self) -> None:
+        response = self.client.get(
+            reverse("posts_by_category", kwargs={"category_slug": "testing"})
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, self.category.name)
