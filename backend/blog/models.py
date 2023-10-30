@@ -19,6 +19,10 @@ class Post(models.Model):
     def __str__(self) -> str:
         return self.title
 
+    @property
+    def get_categories(self) -> str:
+        return ", ".join([c.name for c in self.categories.all()])
+
 
 class Category(models.Model):
     name = models.CharField(max_length=255)

@@ -5,7 +5,14 @@ from .models import Category, Post, Testimonial
 
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
-    list_display = ("title", "slug", "author", "created_at", "updated_at")
+    list_display = (
+        "title",
+        "slug",
+        "author",
+        "get_categories",
+        "created_at",
+        "updated_at",
+    )
     list_filter = ("created_at", "updated_at")
     search_fields = ("title", "body")
     prepopulated_fields = {"slug": ("title",)}
