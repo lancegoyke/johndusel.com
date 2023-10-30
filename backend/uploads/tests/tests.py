@@ -1,6 +1,8 @@
 from django.conf import settings
 from django.test import TestCase
 
+from uploads.models import Image
+
 
 class ImageUploadTests(TestCase):
     def test_upload_image(self):
@@ -16,6 +18,8 @@ class ImageUploadTests(TestCase):
                 "location": f"{settings.DOMAIN}/media/images/test-image.jpg",
             },
         )
+        self.assertEqual(Image.objects.count(), 1)
+        self.assertEqual(str(Image.objects.first()), "images/test-image.jpg")
 
     def test_upload_image_wrong_method(self):
         response = self.client.get("/upload/")
