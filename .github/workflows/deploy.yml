@@ -101,8 +101,6 @@ jobs:
           $SSH_CMD "sudo systemctl restart nextjs-${{ secrets.EC2_HOST }} || sudo systemctl start nextjs-${{ secrets.EC2_HOST }}"
 
       - name: Revoke runner IP address
-        env:
-          RUNNER_IP: ${{ env.RUNNER_IPV4 }}
         run: |
           aws ec2 revoke-security-group-ingress \
             --group-id $EC2_SECURITY_GROUP_ID \
