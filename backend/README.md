@@ -55,4 +55,4 @@ One command uses the sqlite3 `.backup` command to backup the production database
 
 A second command syncs this folder with the `johndusel.com/db-backups/` S3 bucket.
 
-There is currently nothing which deletes these backups.
+There is currently a cronjob which deletes all but the newest 30 files from this folder once per week.
