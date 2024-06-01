@@ -8,7 +8,7 @@ django-storages[boto3]==1.14.2
 django-stubs-ext==4.2.2
 django-stubs==4.2.4
 django-tinymce==3.6.1
-Django==4.2.5
+Django==4.2.13
 djangorestframework==3.14.0
 gunicorn==21.2.0
 mypy-extensions==1.0.0
