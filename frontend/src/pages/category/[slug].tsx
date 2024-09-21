@@ -18,10 +18,11 @@ export default function CategoryPostList({
   category: CategoryInterface;
   posts: PostInterface[];
 }) {
+  const title = `Posts About ${category.name}`;
   return (
     <>
       <Head>
-        <title>Posts About {category.name}</title>
+        <title>{title}</title>
         <meta
           name="description"
           content={`Writing related to ${category.name}`}
