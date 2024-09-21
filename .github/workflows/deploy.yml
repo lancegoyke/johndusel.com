@@ -92,9 +92,15 @@ jobs:
         run: |
           $SSH_CMD "sudo cp -R $NEXTJS_BASE_DIR $DATA_DIR && sudo chown -R ${{ secrets.EC2_HOST }}:${{ secrets.EC2_HOST }} $DATA_DIR"
 
+      - name: Upgrade npm and node
+        run: |
+          $SSH_CMD "sudo npm install -g npm@latest"
+          $SSH_CMD "sudo npm install -g n@latest"
+          $SSH_CMD "sudo n latest"
+
       - name: Install Node.js dependencies and build Next.js site
         run: |
-          $SSH_CMD "cd $NEXTJS_BUILD_DIR && su ${{ secrets.EC2_HOST }} -c 'npm install npm@latest -g' && su ${{ secrets.EC2_HOST }} -c 'npm install' && su ${{ secrets.EC2_HOST }} -c 'npm run build'"
+          $SSH_CMD "cd $NEXTJS_BUILD_DIR && su ${{ secrets.EC2_HOST }} -c 'npm install' && su ${{ secrets.EC2_HOST }} -c 'npm run build'"
 
       - name: Restart Next.js service
         run: |
