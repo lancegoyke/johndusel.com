@@ -119,7 +119,14 @@ STATIC_URL = "/static/"
 STATIC_ROOT = env("STATIC_ROOT")
 MEDIA_URL = "/media/"
 MEDIA_ROOT = env("MEDIA_ROOT")
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+STORAGES = {
+    "default": {
+        "BACKEND": "django.core.files.storage.FileSystemStorage",
+    },
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
@@ -136,7 +143,9 @@ if ENVIRONMENT == "production":
     CSRF_COOKIE_SECURE = True
     SESSION_COOKIE_SECURE = True
 
-    DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
+    STORAGES["default"] = {
+        "BACKEND": "storages.backends.s3.S3Storage",
+    }
     AWS_S3_ACCESS_KEY_ID = env("AWS_S3_ACCESS_KEY_ID")
     AWS_S3_SECRET_ACCESS_KEY = env("AWS_S3_SECRET_ACCESS_KEY")
     AWS_STORAGE_BUCKET_NAME = "johndusel.com"
