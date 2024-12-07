@@ -5,43 +5,48 @@ This page outlines how to launch the Django backend on your local machine.
 ## Set Up Environment
 
 ```bash
+# Set up virtual environment
 cd backend
 python -m venv .venv
 source .venv/bin/activate
+
+# Install dependencies
 python -m pip install -r requirements.txt
-```
 
-## Copy `.env`
-
-```bash
+# Set up environment variables
 cp .example.development.env .development.env
-```
 
-You can edit `.development.env` with your preferred superuser credentials.
-
-## Set Up Database
-
-```bash
+# Set up database
 python manage.py migrate
 python manage.py createsuperuser --no-input
 python manage.py collectstatic --no-input
-```
 
 ## Run the Development Server
-
-```bash
 python manage.py runserver
 ```
 
-Login at http://127.0.0.1:8000/backside.
+Login at http://127.0.0.1:8000/backside to use the Django admin interface.
 
-# Making Updates
+## Managing Packages
+
+```bash
+# Freeze dependencies
+uv pip compile requirements.in > requirements.txt
+
+# Upgrade dependencies
+uv pip compile --upgrade requirements.in > requirements.txt
+
+# Sync your local dependencies with the requirements.txt file
+uv pip sync requirements.txt
+```
+
+## Deployment
 
 GitHub Actions is configured to run a `deploy.yml` workflow.
 
 This will update `apt` packages and `git pull` the code to the server.
 
-# Database Backups
+### Database Backups
 
 The `johndusel.com` user is running cronjobs for backing up the database.
 
