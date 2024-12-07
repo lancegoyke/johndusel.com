@@ -4,11 +4,11 @@ asgiref==3.8.1
     # via
     #   django
     #   django-stubs
-black==24.8.0
+black==24.10.0
     # via -r requirements.in
-boto3==1.35.24
+boto3==1.35.76
     # via django-storages
-botocore==1.35.24
+botocore==1.35.76
     # via
     #   boto3
     #   s3transfer
@@ -18,13 +18,13 @@ certifi==2024.8.30
     # via sentry-sdk
 click==8.1.7
     # via black
-coverage==7.6.1
+coverage==7.6.9
     # via -r requirements.in
-dj-database-url==2.2.0
+dj-database-url==2.3.0
     # via -r requirements.in
 dj-inmemorystorage==2.1.0
     # via -r requirements.in
-django==5.1.1
+django==5.1.4
     # via
     #   -r requirements.in
     #   dj-database-url
@@ -41,9 +41,9 @@ django-environ==0.11.2
     # via -r requirements.in
 django-storages==1.14.4
     # via -r requirements.in
-django-stubs==5.0.4
+django-stubs==5.1.1
     # via -r requirements.in
-django-stubs-ext==5.0.4
+django-stubs-ext==5.1.1
     # via
     #   -r requirements.in
     #   django-stubs
@@ -57,38 +57,38 @@ jmespath==1.0.1
     # via
     #   boto3
     #   botocore
-mypy==1.11.2
+mypy==1.13.0
     # via -r requirements.in
 mypy-extensions==1.0.0
     # via
     #   -r requirements.in
     #   black
     #   mypy
-packaging==24.1
+packaging==24.2
     # via
     #   black
     #   gunicorn
 pathspec==0.12.1
     # via black
-pillow==10.4.0
+pillow==11.0.0
     # via -r requirements.in
 platformdirs==4.3.6
     # via black
 python-dateutil==2.9.0.post0
     # via botocore
-s3transfer==0.10.2
+s3transfer==0.10.4
     # via boto3
-sentry-sdk==2.14.0
+sentry-sdk==2.19.2
     # via -r requirements.in
-six==1.16.0
+six==1.17.0
     # via
     #   dj-inmemorystorage
     #   python-dateutil
-sqlparse==0.5.1
+sqlparse==0.5.2
     # via
     #   django
     #   django-debug-toolbar
-tomli==2.0.1
+tomli==2.2.1
     # via -r requirements.in
 types-pyyaml==6.0.12.20240917
     # via django-stubs
@@ -102,5 +102,5 @@ urllib3==2.2.3
     # via
     #   botocore
     #   sentry-sdk
-whitenoise==6.7.0
+whitenoise==6.8.2
     # via -r requirements.in
