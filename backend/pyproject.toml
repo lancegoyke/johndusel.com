@@ -1,0 +1,29 @@
+[project]
+name = "johndusel-backend"
+version = "0.1.0"
+description = "Django backend for johndusel.com"
+requires-python = ">=3.11"
+dependencies = [
+    "Django>=5.1",
+    "django-tinymce",
+    "black",
+    "coverage",
+    "dj-database-url",
+    "dj-inmemorystorage",
+    "django-debug-toolbar",
+    "django-environ",
+    "django-storages[s3]",
+    "django-stubs-ext",
+    "django-stubs",
+    "djangorestframework",
+    "gunicorn",
+    "mypy-extensions",
+    "mypy",
+    "pillow",
+    "sentry-sdk",
+    "tomli",
+    "whitenoise[brotli]",
+]
+
+[tool.uv]
+dev-dependencies = []
