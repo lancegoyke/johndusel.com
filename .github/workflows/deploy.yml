@@ -64,21 +64,25 @@ jobs:
         run: |
           $SSH_CMD "sudo apt-get update && sudo apt-get upgrade -y && cd $REPO_DIR && git switch master && git pull"
 
+      - name: Install uv
+        run: |
+          $SSH_CMD "command -v uv || curl -LsSf https://astral.sh/uv/install.sh | sudo UV_INSTALL_DIR=/usr/local/bin sh"
+
       - name: Copy to /opt and change permissions
         run: |
           $SSH_CMD "sudo cp --recursive --update --preserve $REPO_DIR /opt && sudo chown -R root:root $OPT_DIR && sudo chmod 0755 $OPT_DIR"
 
       - name: Install Python dependencies
         run: |
-          $SSH_CMD "ENV_PATH=$CONF_DIR/.env PYTHONPATH=$CONF_DIR:$DJANGO_BASE_DIR sudo $VENV_DIR/bin/pip install -r $DJANGO_BASE_DIR/requirements.txt"
+          $SSH_CMD "cd $DJANGO_BASE_DIR && sudo uv sync --frozen"
 
       - name: Python manage.py migrate
         run: |
-          $SSH_CMD "sudo ENV_PATH=$CONF_DIR/.env PYTHONPATH=$CONF_DIR:$DJANGO_BASE_DIR DJANGO_SETTINGS_MODULE=settings $VENV_DIR/bin/python $DJANGO_BASE_DIR/manage.py migrate --noinput"
+          $SSH_CMD "cd $DJANGO_BASE_DIR && sudo ENV_PATH=$CONF_DIR/.env PYTHONPATH=$CONF_DIR:$DJANGO_BASE_DIR DJANGO_SETTINGS_MODULE=settings uv run python manage.py migrate --noinput"
 
       - name: Python manage.py collectstatic
         run: |
-          $SSH_CMD "sudo ENV_PATH=$CONF_DIR/.env PYTHONPATH=$CONF_DIR:$DJANGO_BASE_DIR DJANGO_SETTINGS_MODULE=settings $VENV_DIR/bin/python $DJANGO_BASE_DIR/manage.py collectstatic --noinput"
+          $SSH_CMD "cd $DJANGO_BASE_DIR && sudo ENV_PATH=$CONF_DIR/.env PYTHONPATH=$CONF_DIR:$DJANGO_BASE_DIR DJANGO_SETTINGS_MODULE=settings uv run python manage.py collectstatic --noinput"
 
       - name: Chown static files
         run: |
