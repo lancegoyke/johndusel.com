@@ -8,6 +8,9 @@ type PostSlug = {
 
 export async function getPostSlugs(): Promise<PostSlug[]> {
   const res = await fetch(`${process.env.BASE_API_URL}/posts/`);
+  if (!res.ok) {
+    throw new Error(`API error fetching /posts/: ${res.status} ${res.statusText}`);
+  }
   const data: PostInterface[] = await res.json();
   // Filter the data to only include the slugs
   return data.map((post) => {
@@ -25,6 +28,9 @@ export async function getPostSlugsByCategory(
   const res = await fetch(
     `${process.env.BASE_API_URL}/posts/category/${categorySlug}/`
   );
+  if (!res.ok) {
+    throw new Error(`API error fetching /posts/category/${categorySlug}/: ${res.status} ${res.statusText}`);
+  }
   const data: PostInterface[] = await res.json();
   // Filter the data to only include the slugs
   return data.map((post) => {
@@ -38,6 +44,9 @@ export async function getPostSlugsByCategory(
 
 export async function getPostCategorySlugs(): Promise<PostSlug[]> {
   const res = await fetch(`${process.env.BASE_API_URL}/categories/`);
+  if (!res.ok) {
+    throw new Error(`API error fetching /categories/: ${res.status} ${res.statusText}`);
+  }
   const data: CategoryInterface[] = await res.json();
   // Filter the data to only include the slugs
   return data.map((category) => {
