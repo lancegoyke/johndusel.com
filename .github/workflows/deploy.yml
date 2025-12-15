@@ -92,6 +92,10 @@ jobs:
         run: |
           $SSH_CMD "sudo systemctl restart gunicorn-${{ secrets.EC2_HOST }} || sudo systemctl start gunicorn-${{ secrets.EC2_HOST }}"
 
+      - name: Wait for backend API to be healthy
+        run: |
+          $SSH_CMD "for i in {1..30}; do curl -sf http://localhost:8000/api/posts/ > /dev/null && echo 'Backend is healthy' && exit 0; echo \"Waiting for backend... attempt \$i\"; sleep 2; done; echo 'Backend health check failed'; exit 1"
+
       - name: Copy frontend into data directory and change owner
         run: |
           $SSH_CMD "sudo cp -R $NEXTJS_BASE_DIR $DATA_DIR && sudo chown -R ${{ secrets.EC2_HOST }}:${{ secrets.EC2_HOST }} $DATA_DIR"
