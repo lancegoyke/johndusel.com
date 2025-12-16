@@ -24,6 +24,7 @@ jobs:
       STATICFILES_DIR: /var/opt/${{ secrets.EC2_HOST }}/staticfiles
       NEXTJS_BASE_DIR: /opt/${{ secrets.EC2_HOST }}/frontend
       NEXTJS_BUILD_DIR: /var/opt/${{ secrets.EC2_HOST }}/frontend
+      UV_PYTHON_DIR: /opt/uv/python
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -74,7 +75,7 @@ jobs:
 
       - name: Install Python dependencies
         run: |
-          $SSH_CMD "cd $DJANGO_BASE_DIR && sudo uv sync --frozen"
+          $SSH_CMD "sudo mkdir -p $UV_PYTHON_DIR && cd $DJANGO_BASE_DIR && sudo UV_PYTHON_INSTALL_DIR=$UV_PYTHON_DIR uv sync --frozen && sudo chmod -R a+rx /opt/uv"
 
       - name: Python manage.py migrate
         run: |
