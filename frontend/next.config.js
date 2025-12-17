@@ -4,6 +4,7 @@ const { withSentryConfig } = require("@sentry/nextjs");
 const nextConfig = {
   reactStrictMode: true,
   staticPageGenerationTimeout: 1000,
+  output: "standalone",
   env: {
     SITE_TITLE: "John Dusel",
     SITE_DESCRIPTION:
@@ -16,4 +17,12 @@ const nextConfig = {
   },
 };
 
-module.exports = withSentryConfig(nextConfig);
+// Sentry webpack plugin options
+const sentryWebpackPluginOptions = {
+  // Suppress all Sentry CLI logs
+  silent: true,
+  // Skip source map upload (do this in CI instead)
+  dryRun: process.env.SENTRY_DRY_RUN === "true",
+};
+
+module.exports = withSentryConfig(nextConfig, sentryWebpackPluginOptions);

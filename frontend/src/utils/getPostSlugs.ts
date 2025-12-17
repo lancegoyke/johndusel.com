@@ -7,53 +7,57 @@ type PostSlug = {
 };
 
 export async function getPostSlugs(): Promise<PostSlug[]> {
-  const res = await fetch(`${process.env.BASE_API_URL}/posts/`);
-  if (!res.ok) {
-    throw new Error(`API error fetching /posts/: ${res.status} ${res.statusText}`);
+  try {
+    const res = await fetch(`${process.env.BASE_API_URL}/posts/`);
+    if (!res.ok) {
+      console.warn(`API error fetching /posts/: ${res.status} ${res.statusText}`);
+      return [];
+    }
+    const data: PostInterface[] = await res.json();
+    return data.map((post) => ({
+      params: { slug: post.slug },
+    }));
+  } catch (error) {
+    // Return empty array during build if API unavailable (pages generated on-demand)
+    console.warn("API unavailable during build, pages will be generated on-demand:", error);
+    return [];
   }
-  const data: PostInterface[] = await res.json();
-  // Filter the data to only include the slugs
-  return data.map((post) => {
-    return {
-      params: {
-        slug: post.slug,
-      },
-    };
-  });
 }
 
 export async function getPostSlugsByCategory(
   categorySlug: string
 ): Promise<PostSlug[]> {
-  const res = await fetch(
-    `${process.env.BASE_API_URL}/posts/category/${categorySlug}/`
-  );
-  if (!res.ok) {
-    throw new Error(`API error fetching /posts/category/${categorySlug}/: ${res.status} ${res.statusText}`);
+  try {
+    const res = await fetch(
+      `${process.env.BASE_API_URL}/posts/category/${categorySlug}/`
+    );
+    if (!res.ok) {
+      console.warn(`API error fetching /posts/category/${categorySlug}/: ${res.status} ${res.statusText}`);
+      return [];
+    }
+    const data: PostInterface[] = await res.json();
+    return data.map((post) => ({
+      params: { slug: post.slug },
+    }));
+  } catch (error) {
+    console.warn("API unavailable during build:", error);
+    return [];
   }
-  const data: PostInterface[] = await res.json();
-  // Filter the data to only include the slugs
-  return data.map((post) => {
-    return {
-      params: {
-        slug: post.slug,
-      },
-    };
-  });
 }
 
 export async function getPostCategorySlugs(): Promise<PostSlug[]> {
-  const res = await fetch(`${process.env.BASE_API_URL}/categories/`);
-  if (!res.ok) {
-    throw new Error(`API error fetching /categories/: ${res.status} ${res.statusText}`);
+  try {
+    const res = await fetch(`${process.env.BASE_API_URL}/categories/`);
+    if (!res.ok) {
+      console.warn(`API error fetching /categories/: ${res.status} ${res.statusText}`);
+      return [];
+    }
+    const data: CategoryInterface[] = await res.json();
+    return data.map((category) => ({
+      params: { slug: category.slug },
+    }));
+  } catch (error) {
+    console.warn("API unavailable during build:", error);
+    return [];
   }
-  const data: CategoryInterface[] = await res.json();
-  // Filter the data to only include the slugs
-  return data.map((category) => {
-    return {
-      params: {
-        slug: category.slug,
-      },
-    };
-  });
 }
