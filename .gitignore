@@ -48,7 +48,8 @@ next-env.d.ts
 
 
 # Backup files # 
-*.bak 
+*.bak
+*.backup.sqlite3
 
 # If you are using PyCharm # 
 # User-specific stuff
