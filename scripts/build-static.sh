@@ -44,7 +44,10 @@ echo "→ Applying migrations (no-op if DB is current)..."
 uv run python manage.py migrate --noinput
 
 echo "→ Starting build-time backend on 127.0.0.1:${PORT}..."
-uv run python manage.py runserver "127.0.0.1:${PORT}" >/tmp/jd-build-backend.log 2>&1 &
+# --noreload: without it Django's autoreloader forks a child server, and the
+# EXIT trap would only kill the parent — leaving an orphan bound to :PORT that
+# a later build would read (stale content) while the new server fails to bind.
+uv run python manage.py runserver --noreload "127.0.0.1:${PORT}" >/tmp/jd-build-backend.log 2>&1 &
 BACKEND_PID=$!
 trap 'kill "${BACKEND_PID}" 2>/dev/null || true' EXIT
 
@@ -64,5 +67,5 @@ BASE_API_URL="http://127.0.0.1:${PORT}/api" SITE_URL="${SITE_URL}" SENTRY_DRY_RU
 
 echo
 echo "✅ Static site built at frontend/out/"
-echo "   Preview:  cd frontend/out && python3 -m http.server 8081"
+echo "   Preview:  just preview-static   (http://localhost:8081)"
 echo "   Deploy:   ship frontend/out/ to Hetzner (Caddy file_server) — see docs/STATIC_DEPLOY.md"
