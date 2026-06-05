@@ -74,6 +74,20 @@ npm-install:
     cd frontend && npm install
 
 # ─────────────────────────────────────────────────────────────────────────────
+# Static deployment (see docs/STATIC_DEPLOY.md)
+# ─────────────────────────────────────────────────────────────────────────────
+
+# Build the fully static site into frontend/out/ (pass a DB backup path the first time)
+build-static db="":
+    bash scripts/build-static.sh {{db}}
+
+# Preview the built static site locally at http://localhost:8081
+# `serve` resolves extensionless routes to <route>.html, matching the production
+# Caddy try_files behavior (python -m http.server does not, so it 404s on /posts).
+preview-static:
+    npx --yes serve frontend/out -l 8081
+
+# ─────────────────────────────────────────────────────────────────────────────
 # Full Stack
 # ─────────────────────────────────────────────────────────────────────────────
 

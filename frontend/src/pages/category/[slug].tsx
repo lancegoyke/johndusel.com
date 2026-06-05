@@ -55,6 +55,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   const paths = await getPostCategorySlugs();
   return {
     paths,
+    // Static export: all pages are generated at build time (content is frozen).
     fallback: false,
   };
 };

@@ -1,12 +1,14 @@
 import { CategoryInterface, PostInterface } from "../interfaces/PostInterface";
 
+// Used by getStaticProps under `output: "export"`. Throw on failure so the
+// static build fails loudly rather than baking an empty/partial site.
+
 export async function getPosts(): Promise<PostInterface[]> {
   const res = await fetch(`${process.env.BASE_API_URL}/posts/`);
   if (!res.ok) {
     throw new Error(`API error fetching /posts/: ${res.status} ${res.statusText}`);
   }
-  const data = await res.json();
-  return data;
+  return await res.json();
 }
 
 export async function getLatestPosts(): Promise<PostInterface[]> {
@@ -14,8 +16,7 @@ export async function getLatestPosts(): Promise<PostInterface[]> {
   if (!res.ok) {
     throw new Error(`API error fetching /posts/latest/: ${res.status} ${res.statusText}`);
   }
-  const data = await res.json();
-  return data;
+  return await res.json();
 }
 
 export async function getPostsByCategory(
@@ -25,10 +26,11 @@ export async function getPostsByCategory(
     `${process.env.BASE_API_URL}/posts/category/${categorySlug}/`
   );
   if (!res.ok) {
-    throw new Error(`API error fetching /posts/category/${categorySlug}/: ${res.status} ${res.statusText}`);
+    throw new Error(
+      `API error fetching /posts/category/${categorySlug}/: ${res.status} ${res.statusText}`
+    );
   }
-  const data = await res.json();
-  return data;
+  return await res.json();
 }
 
 export async function getCategoryBySlug(
@@ -38,8 +40,9 @@ export async function getCategoryBySlug(
     `${process.env.BASE_API_URL}/categories/${categorySlug}/`
   );
   if (!res.ok) {
-    throw new Error(`API error fetching /categories/${categorySlug}/: ${res.status} ${res.statusText}`);
+    throw new Error(
+      `API error fetching /categories/${categorySlug}/: ${res.status} ${res.statusText}`
+    );
   }
-  const data = await res.json();
-  return data;
+  return await res.json();
 }

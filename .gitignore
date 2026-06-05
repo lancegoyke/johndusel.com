@@ -183,3 +183,9 @@ GitHub.sublime-settings
 
 # WSL #
 *:Zone.Identifier
+
+# Docker #
+data/db/*
+data/media/*
+!data/db/.gitkeep
+!data/media/.gitkeep

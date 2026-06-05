@@ -6,20 +6,19 @@ type PostSlug = {
   };
 };
 
+// These feed getStaticPaths with `fallback: false` under `output: "export"`.
+// If a fetch fails we MUST throw so the static build fails loudly — returning
+// an empty list would silently ship a site with pages missing.
+
 export async function getPostSlugs(): Promise<PostSlug[]> {
   const res = await fetch(`${process.env.BASE_API_URL}/posts/`);
   if (!res.ok) {
     throw new Error(`API error fetching /posts/: ${res.status} ${res.statusText}`);
   }
   const data: PostInterface[] = await res.json();
-  // Filter the data to only include the slugs
-  return data.map((post) => {
-    return {
-      params: {
-        slug: post.slug,
-      },
-    };
-  });
+  return data.map((post) => ({
+    params: { slug: post.slug },
+  }));
 }
 
 export async function getPostSlugsByCategory(
@@ -29,17 +28,14 @@ export async function getPostSlugsByCategory(
     `${process.env.BASE_API_URL}/posts/category/${categorySlug}/`
   );
   if (!res.ok) {
-    throw new Error(`API error fetching /posts/category/${categorySlug}/: ${res.status} ${res.statusText}`);
+    throw new Error(
+      `API error fetching /posts/category/${categorySlug}/: ${res.status} ${res.statusText}`
+    );
   }
   const data: PostInterface[] = await res.json();
-  // Filter the data to only include the slugs
-  return data.map((post) => {
-    return {
-      params: {
-        slug: post.slug,
-      },
-    };
-  });
+  return data.map((post) => ({
+    params: { slug: post.slug },
+  }));
 }
 
 export async function getPostCategorySlugs(): Promise<PostSlug[]> {
@@ -48,12 +44,7 @@ export async function getPostCategorySlugs(): Promise<PostSlug[]> {
     throw new Error(`API error fetching /categories/: ${res.status} ${res.statusText}`);
   }
   const data: CategoryInterface[] = await res.json();
-  // Filter the data to only include the slugs
-  return data.map((category) => {
-    return {
-      params: {
-        slug: category.slug,
-      },
-    };
-  });
+  return data.map((category) => ({
+    params: { slug: category.slug },
+  }));
 }
