@@ -47,8 +47,12 @@ The site is served by the shared Caddy on the Hetzner box via the `deploy`
 tooling's static-site flow (`PROJECT_TYPE=static`, atomic `releases/` + `current`
 symlink). Ship `frontend/out/` as a new release, then point DNS:
 
-- Caddy site block reverse-serves the release dir with `try_files {path} {path}.html {path}/ /404.html`
-  (Next export emits extensionless routes as `<route>.html`).
+- Caddy serves the release dir with `file_server`, mapping extensionless routes to
+  `<route>.html` via `try_files {path} {path}.html {path}/index.html`. Unknown URLs
+  fall through to a `handle_errors` block that serves `404.html` with a **real 404
+  status**. Do NOT add `/404.html` as a `try_files` fallback — that returns the 404
+  page with HTTP 200 and lets broken URLs get indexed. Live config:
+  `/opt/caddy/sites/johndusel.com.caddy`.
 - **DNS:** `johndusel.com` is on **Namecheap** — point the apex (and `www`) at the
   Hetzner IP `178.156.203.110`. Caddy fetches TLS automatically once DNS resolves.
 
