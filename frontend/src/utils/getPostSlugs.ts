@@ -6,58 +6,45 @@ type PostSlug = {
   };
 };
 
+// These feed getStaticPaths with `fallback: false` under `output: "export"`.
+// If a fetch fails we MUST throw so the static build fails loudly — returning
+// an empty list would silently ship a site with pages missing.
+
 export async function getPostSlugs(): Promise<PostSlug[]> {
-  try {
-    const res = await fetch(`${process.env.BASE_API_URL}/posts/`);
-    if (!res.ok) {
-      console.warn(`API error fetching /posts/: ${res.status} ${res.statusText}`);
-      return [];
-    }
-    const data: PostInterface[] = await res.json();
-    return data.map((post) => ({
-      params: { slug: post.slug },
-    }));
-  } catch (error) {
-    // Return empty array during build if API unavailable (pages generated on-demand)
-    console.warn("API unavailable during build, pages will be generated on-demand:", error);
-    return [];
+  const res = await fetch(`${process.env.BASE_API_URL}/posts/`);
+  if (!res.ok) {
+    throw new Error(`API error fetching /posts/: ${res.status} ${res.statusText}`);
   }
+  const data: PostInterface[] = await res.json();
+  return data.map((post) => ({
+    params: { slug: post.slug },
+  }));
 }
 
 export async function getPostSlugsByCategory(
   categorySlug: string
 ): Promise<PostSlug[]> {
-  try {
-    const res = await fetch(
-      `${process.env.BASE_API_URL}/posts/category/${categorySlug}/`
+  const res = await fetch(
+    `${process.env.BASE_API_URL}/posts/category/${categorySlug}/`
+  );
+  if (!res.ok) {
+    throw new Error(
+      `API error fetching /posts/category/${categorySlug}/: ${res.status} ${res.statusText}`
     );
-    if (!res.ok) {
-      console.warn(`API error fetching /posts/category/${categorySlug}/: ${res.status} ${res.statusText}`);
-      return [];
-    }
-    const data: PostInterface[] = await res.json();
-    return data.map((post) => ({
-      params: { slug: post.slug },
-    }));
-  } catch (error) {
-    console.warn("API unavailable during build:", error);
-    return [];
   }
+  const data: PostInterface[] = await res.json();
+  return data.map((post) => ({
+    params: { slug: post.slug },
+  }));
 }
 
 export async function getPostCategorySlugs(): Promise<PostSlug[]> {
-  try {
-    const res = await fetch(`${process.env.BASE_API_URL}/categories/`);
-    if (!res.ok) {
-      console.warn(`API error fetching /categories/: ${res.status} ${res.statusText}`);
-      return [];
-    }
-    const data: CategoryInterface[] = await res.json();
-    return data.map((category) => ({
-      params: { slug: category.slug },
-    }));
-  } catch (error) {
-    console.warn("API unavailable during build:", error);
-    return [];
+  const res = await fetch(`${process.env.BASE_API_URL}/categories/`);
+  if (!res.ok) {
+    throw new Error(`API error fetching /categories/: ${res.status} ${res.statusText}`);
   }
+  const data: CategoryInterface[] = await res.json();
+  return data.map((category) => ({
+    params: { slug: category.slug },
+  }));
 }
