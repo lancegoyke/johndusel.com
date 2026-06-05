@@ -43,16 +43,25 @@ Output is `frontend/out/`.
 
 ## Deploy to Hetzner
 
-The site is served by the shared Caddy on the Hetzner box via the `deploy`
-tooling's static-site flow (`PROJECT_TYPE=static`, atomic `releases/` + `current`
-symlink). Ship `frontend/out/` as a new release, then point DNS:
+The site is served by the shared Caddy on the Hetzner box from a release dir
+under `/srv/johndusel.com/` (a `current` symlink → `releases/<ts>/`). Note: this
+is a **Next.js export**, not the deploy CLI's SPA `--project-type static` flow
+(that template assumes Vite `dist/`+`/assets/` SPA fallback), so it's deployed
+manually:
 
-- Caddy serves the release dir with `file_server`, mapping extensionless routes to
-  `<route>.html` via `try_files {path} {path}.html {path}/index.html`. Unknown URLs
-  fall through to a `handle_errors` block that serves `404.html` with a **real 404
-  status**. Do NOT add `/404.html` as a `try_files` fallback — that returns the 404
-  page with HTTP 200 and lets broken URLs get indexed. Live config:
-  `/opt/caddy/sites/johndusel.com.caddy`.
+```bash
+TS=$(date -u +%Y-%m-%dT%H-%M-%SZ)
+rsync -a --delete frontend/out/ hetzner:/srv/johndusel.com/releases/$TS/
+ssh hetzner "ln -sfn releases/$TS /srv/johndusel.com/current"
+```
+
+- **Caddy config:** [`deploy/caddy/johndusel.com.caddy`](../deploy/caddy/johndusel.com.caddy)
+  is canonical — copy it to `/opt/caddy/sites/johndusel.com.caddy` and reload Caddy
+  (`docker compose -f /opt/deploy/infra/caddy/docker-compose.yml exec caddy caddy reload --config /etc/caddy/Caddyfile`).
+  It maps extensionless routes to `<route>.html`, **308-redirects trailing-slash
+  URLs** (`/posts/` → `/posts`, matching Next's old runtime), and serves `404.html`
+  with a **real 404 status** (via `handle_errors`, not a `try_files` fallback — the
+  latter would return the 404 page as HTTP 200 and let broken URLs get indexed).
 - **DNS:** `johndusel.com` is on **Namecheap** — point the apex (and `www`) at the
   Hetzner IP `178.156.203.110`. Caddy fetches TLS automatically once DNS resolves.
 
