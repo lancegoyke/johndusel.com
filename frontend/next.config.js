@@ -4,7 +4,10 @@ const { withSentryConfig } = require("@sentry/nextjs");
 const nextConfig = {
   reactStrictMode: true,
   staticPageGenerationTimeout: 1000,
-  output: "standalone",
+  // Static HTML export — the Django CMS is only needed at build time.
+  output: "export",
+  // Required for `output: export` (no Next.js image-optimization server at runtime).
+  images: { unoptimized: true },
   env: {
     SITE_TITLE: "John Dusel",
     SITE_DESCRIPTION:

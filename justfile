@@ -74,6 +74,18 @@ npm-install:
     cd frontend && npm install
 
 # ─────────────────────────────────────────────────────────────────────────────
+# Static deployment (see docs/STATIC_DEPLOY.md)
+# ─────────────────────────────────────────────────────────────────────────────
+
+# Build the fully static site into frontend/out/ (pass a DB backup path the first time)
+build-static db="":
+    bash scripts/build-static.sh {{db}}
+
+# Preview the built static site locally at http://localhost:8081
+preview-static:
+    cd frontend/out && python3 -m http.server 8081
+
+# ─────────────────────────────────────────────────────────────────────────────
 # Full Stack
 # ─────────────────────────────────────────────────────────────────────────────
 
