@@ -21,6 +21,12 @@ DB_SRC="${1:-}"
 PORT="${BACKEND_PORT:-8000}"
 SITE_URL="${SITE_URL:-https://johndusel.com}"
 
+# Resolve a relative DB path against the invocation cwd BEFORE we cd into backend/,
+# otherwise `cp "$DB_SRC"` would look for it under backend/.
+if [[ -n "$DB_SRC" && "$DB_SRC" != /* ]]; then
+  DB_SRC="$(pwd)/$DB_SRC"
+fi
+
 cd "$ROOT/backend"
 if [[ -n "$DB_SRC" ]]; then
   echo "→ Using DB backup: $DB_SRC"
@@ -43,6 +49,13 @@ export ENVIRONMENT=development
 echo "→ Applying migrations (no-op if DB is current)..."
 uv run python manage.py migrate --noinput
 
+# Refuse to run if the port is already taken — otherwise the readiness check
+# below could pass against a foreign/stale server and export the wrong content.
+if curl -s -o /dev/null --max-time 2 "http://127.0.0.1:${PORT}/"; then
+  echo "ERROR: something is already listening on 127.0.0.1:${PORT}. Stop it and re-run." >&2
+  exit 1
+fi
+
 echo "→ Starting build-time backend on 127.0.0.1:${PORT}..."
 # --noreload: without it Django's autoreloader forks a child server, and the
 # EXIT trap would only kill the parent — leaving an orphan bound to :PORT that
@@ -55,6 +68,11 @@ trap 'kill "${BACKEND_PID}" 2>/dev/null || true' EXIT
 if ! curl -s --retry 30 --retry-delay 1 --retry-connrefused -o /dev/null \
         "http://127.0.0.1:${PORT}/api/posts/"; then
   echo "ERROR: build-time backend never answered on :${PORT}. See /tmp/jd-build-backend.log" >&2
+  exit 1
+fi
+# Make sure it's *our* server that answered, not something that slipped onto the port.
+if ! kill -0 "${BACKEND_PID}" 2>/dev/null; then
+  echo "ERROR: build-time backend process exited. See /tmp/jd-build-backend.log" >&2
   exit 1
 fi
 echo "  backend is serving content."
