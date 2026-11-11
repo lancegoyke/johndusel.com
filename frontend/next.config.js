@@ -1,5 +1,5 @@
 /** @type {import('next').NextConfig} */
-const { withSentryConfig } = require("@sentry/nextjs");
+const { withSentryConfig } = require("@sentry/nextjs/config");
 
 const nextConfig = {
   reactStrictMode: true,
@@ -15,17 +15,18 @@ const nextConfig = {
     SITE_AUTHOR: "John Dusel",
     SITE_EMAIL: "john.dusel@gmail.com",
   },
-  sentry: {
-    hideSourceMaps: true,
+};
+
+// Sentry build options (@sentry/nextjs v8+ moved these out of nextConfig.sentry)
+const sentryBuildOptions = {
+  // Suppress all Sentry CLI logs
+  silent: true,
+  sourcemaps: {
+    // Skip source map upload (do this in CI instead)
+    disable: process.env.SENTRY_DRY_RUN === "true",
+    // Replaces the old `hideSourceMaps: true`: don't ship .map files publicly
+    deleteSourcemapsAfterUpload: true,
   },
 };
 
-// Sentry webpack plugin options
-const sentryWebpackPluginOptions = {
-  // Suppress all Sentry CLI logs
-  silent: true,
-  // Skip source map upload (do this in CI instead)
-  dryRun: process.env.SENTRY_DRY_RUN === "true",
-};
-
-module.exports = withSentryConfig(nextConfig, sentryWebpackPluginOptions);
+module.exports = withSentryConfig(nextConfig, sentryBuildOptions);
